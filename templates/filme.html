@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+
+  <!-- Demo styles -->
+  
+
+<body>
+    <!-- headder -->
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="logo">
+                Movie<span>Vel</span>
+            </a>
+
+            <!--- Pesquisa -->
+          
+
+            <!--User -->
+            <a href="#" class="user">
+                <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="user-img">
+            </a>
+
+            <div class="navbar">
+                <a href="/" class="nav-link">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
+                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+
+                <a href="/pesquisa" class="nav-link nav-active">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                
+                
+
+            </div>
+
+        </div>
+
+     </header>
+
+    
+       <!--Fim da sessão-->
+
+     <div class="play-container container">
+        <img src="{{ url_for('static', filename='img/' + perfil.foto)}}" alt="" class="play-img">
+        <div class="play-text">
+            <h2>{{ perfil.titulo }}</h2>
+            <div class="rating">
+                {{ perfil.lancamento }}
+            </div>
+
+                <div class="tags">
+                    <span>{{ perfil.genero }}</span>
+                    <span>4K</span>
+                </div>
+                <a href="#" class="watch-btn">
+                   
+                    <span>Veja o trailer</span>
+                </a>  
+
+        </div>
+        <i class='bx bx-right-arrow play-movie'></i>
+
+        <div class="video-container">
+            <div class="video-box">
+                <video id="myvideo" src="{{ url_for('static', filename='video/' + perfil.video)}}" controls></video>
+                <i class='bx bx-x close-video'></i>
+            </div>
+        </div>
+     </div>
+
+     <div class="next-page">
+        <a href="{{ url_for('static', filename='video/' + perfil.video)}}" download="" class="next-btn">Abaixar trailer</a>
+    </div>
+
+    
+
+  <!-- Swiper JS -->
+  
+<script src="{{ url_for('static', filename='js/index.js')}}"></script>
+  <!-- Initialize Swiper -->
+
+</body>
+
+</html>

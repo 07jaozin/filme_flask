@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.7.0/remixicon.css">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-box login" >
+            <form action="/editar_perfil/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                <h1>Editar</h1>
+                <div class="input-box">
+                    <input type="text" name="nome-editar" placeholder="Nome" value="{{ usuario.nome }}" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="senha-editar" value="{{ usuario.senha }}" id="senha" placeholder="senha" required>
+                        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+                        <i class="ri-eye-line"></i>
+                </div>
+                <div class="input-box">
+                    <input type="file" name="foto-editar" placeholder="foto" >
+                        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+                        <i class='bx bxs-lock-alt'></i>
+                </div>
+                <button type="submit" class="btn">Salvar</button>
+                
+            </form>
+        </div>
+        
+        
+
+        
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Ola!</h1>
+                <p>Caso deseje voltar, clique no botão abaixo?</p>
+                <button href="/" class="btn register-btn">Voltar</button>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        const eye = document.querySelector('.ri-eye-line');
+        const senha = document.querySelector('#senha');
+        const button = document.querySelector('.register-btn')
+
+        eye.addEventListener("click", () => {
+            if (senha.type === 'password') {
+                   senha.type = 'text';
+                 } else {
+                   senha.type = 'password';
+                 }
+        })
+
+        button.addEventListener("click", () => {
+            window.location.href = '/'
+        })
+    </script>
+</body>
+</html>

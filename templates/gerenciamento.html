@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Cadastrar Produto</title>
+    <style>
+        
+
+        .containerr {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: #2d2e37;
+            padding: 30px;
+            border-radius: 50px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            color: #fcfeff;
+            border: 2px solid hsl(37,94%,57%);;
+            
+            
+        }
+
+        h2 {
+            text-align: center;
+            color: #fcfeff;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #fcfeff;
+        }
+        select{
+            background-color: #a7a7a7;
+        }
+        input[type="text"],
+        input[type="number"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+            color: #333;
+            
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        input[type="file"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+        }
+        table-container {
+  max-width: 1000px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+.menu-table thead {
+  background: #4a90e2;
+  color: #fff;
+}
+
+.menu-table th, .menu-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-table img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #28a745;
+}
+
+.edit-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  margin-left: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .menu-table thead {
+    display: none;
+  }
+
+  .menu-table, .menu-table tbody, .menu-table tr, .menu-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .menu-table tr {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .menu-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .menu-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+    color: #333;
+  }
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="logo">
+                Movie<span>Vel</span>
+            </a>
+
+            
+            <!--User -->
+           
+
+            <div class="navbar">
+                <a href="/" class="nav-link">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
+                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+
+                <a href="/pesquisa" class="nav-link">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link nav-active">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                
+
+            </div>
+
+        </div>
+
+     </header>
+
+<br>
+<br>
+<br>
+<div class="containerr">
+    <h2>Cadastrar Filme</h2>
+    <form action="/gerenciamento" method="POST" enctype="multipart/form-data">
+        <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <!-- Campo de Gênero -->
+    <label for="genero">Gênero:</label>
+    <input type="text" id="genero" name="genero" required>
+
+    <!-- Campo de Categoria -->
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" name="categoria" required>
+        <option value="home">Home</option>
+        <option value="popular">Popular</option>
+        <option value="show">Show</option>
+    </select>
+
+    <!-- Campo de Data -->
+    <label for="data">Data:</label>
+    <input type="text" id="data" name="data" required>
+
+    <!-- Campo de Foto -->
+    <label for="foto">Foto:</label>
+    <input type="file" id="foto" accept="image/*" name="foto">
+
+    <!-- Campo de Vídeo -->
+    <label for="video">Vídeo:</label>
+    <input type="file" id="video" accept="video/*" name="video">
+    
+        <button type="submit">Cadastrar</button>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<div class="table-container">
+    <h1>Todos os filmes</h1>
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Foto</th>
+          <th>Sabor</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Peso</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for filme in filmes %}
+        <tr>
+          <td>{{ filme.id }}</td>
+          <td><img src="" alt="Foto Produto"></td>
+          <td>{{ filme.titulo }}</td>
+          <td>{{ filme.categoria }}</td>
+          <td>{{ filme.lancamento }}</td>
+          <td>{{ filme.genero }}</td>
+          <td>
+            <a href="/editar_filme/{{ filme.id }}"  class="edit-btn">Editar</a>
+            <a href="/excluir_fime/{{ filme.id }}"  class="delete-btn">Excluir</a>
+          </td>
+        </tr>
+        {% endfor %}
+      
+       
+      </tbody>
+    </table>
+  </div>
+<script>
+   
+    document.getElementById('data').addEventListener('input', function (e) {
+  let valor = e.target.value;
+
+  // Remove tudo que não for número
+  valor = valor.replace(/\D/g, '');
+
+  // Aplica as barras automaticamente
+  if (valor.length > 2 && valor.length <= 4) {
+    valor = valor.slice(0, 2) + '/' + valor.slice(2);
+  } else if (valor.length > 4) {
+    valor = valor.slice(0, 2) + '/' + valor.slice(2, 4) + '/' + valor.slice(4, 8);
+  }
+
+  // Limita a 10 caracteres (dd/mm/aaaa)
+  valor = valor.slice(0, 10);
+
+  e.target.value = valor;
+});
+
+</script>
+
+</body>
+</html>

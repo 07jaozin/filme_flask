@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css')}}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+</head>
+<body>
+     <!-- headder -->
+     <header>
+        
+
+            <div class="navbar">
+                <a href="/" class="nav-link">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
+                <a  class="nav-link nav-active">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+
+                <a href="/pesquisa" class="nav-link">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                
+
+            </div>
+
+        </div>
+
+     </header>
+    
+    <div class="card">
+        <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="img">
+        <h1 class="name">{{ usuario.nome }}</h1>
+        
+        <h1 class="senha">{{ usuario.senha }}</h1>
+        <br>
+        <br>
+        
+        <a href="/editar_perfil/{{ usuario.id }}" class="btn">editar perfil</a>
+        <a class="btn excluir">excluir conta</a>
+    </div>
+
+    <div class="confirmacao-modal" id="modal-excluir">
+        <div class="modal-conteudo">
+          <h2>Deseja realmente excluir sua conta?</h2>
+          <div class="botoes">
+            <a href="/excluir_perfil/{{ usuario.id }}" class="btn-sim">Sim</a>
+            <a class="btn-cancelar">Cancelar</a>
+          </div>
+        </div>
+      </div>
+      <script src="{{ url_for('static', filename='js/perfil.js')}}"></script>
+</body>
+</html>

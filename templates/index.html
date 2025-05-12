@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+
+  <!-- Demo styles -->
+  
+
+<body>
+    <!-- headder -->
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="logo">
+                Movie<span>Vel</span>
+            </a>
+
+            
+            <!--User -->
+            <a href="#" class="user">
+                <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="user-img">
+            </a>
+
+            <div class="navbar">
+                <a href="#home" class="nav-link nav-active">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
+                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+
+                <a href="/pesquisa" class="nav-link">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                
+
+            </div>
+
+        </div>
+
+     </header>
+
+    <section class="home container" id="home">
+    {% for filme in filmes %}
+        {% if filme.categoria == 'home' %}
+        <img src="{{ url_for('static', filename='img/' + filme.foto)}}" alt="" class="home-img">
+        <div class="home-text">
+            <h1 class="home-title">{{ filme.titulo }}</h1>
+            <p>{{ filme.lancamento }}</p>
+            <a href="{{ filme.perfil_video() }}" class="watch-btn">
+                <i class='bx bx-right-arrow'></i>
+                <span>Ver mais</span>
+            </a>
+           
+        </div>
+        {% endif %}
+    {% endfor %}
+    </section>
+
+    <!-- home end -->
+
+     <!--Populares-->
+     <section class="popular container" id="popular">
+        <div class="heading">
+            <h2 class="heading-title">Popular Movies </h2>
+            <div class="swiper-btn">
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                
+            </div>
+        </div>
+
+        <div class="popular-content swiper">
+
+            <!--Box 1-->
+            <div class="swiper-wrapper">
+
+                {% for filme in filmes %}
+                {% if filme.categoria == 'popular' %}
+                <div class="swiper-slide">
+                    <div class="movie-box">
+                        <img src="{{ url_for('static', filename='img/' + filme.foto)}}" alt="" class="movie-box-img">
+                        <div class="box-text">
+                            <h2 class="movie-title">{{ filme.titulo }}</h2>
+                            <span class="movie-type">{{ filme.genero }}</span>
+                            <a href="{{ filme.perfil_video() }}" class="watch-btn play-btn">
+                                <i class='bx bx-right-arrow'></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                 
+              </div>
+             
+        </div>
+
+        </div>
+     </section>
+     <!-- Fim section-->
+      <!-- Section movies-->
+       <section class="movies container" id="movies">
+        <div class="heading">
+            <h2 class="heading-title">Movies and Show </h2>
+        </div>
+
+        
+        <div class="movies-content">
+            {% for filme in filmes %}
+            {% if filme.categoria == 'show' %}
+            <div class="movie-box">
+                <img src="{{ url_for('static', filename='img/' + filme.foto)}}" alt="" class="movie-box-img">
+                <div class="box-text">
+                    <h2 class="movie-title">{{ filme.titulo }}</h2>
+                    <span class="movie-type">{{ filme.genero }}</span>
+                    <a href="{{ filme.perfil_video() }}" class="watch-btn play-btn">
+                        <i class='bx bx-right-arrow'></i>
+                    </a>
+                    
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+       
+        
+       </section>
+
+       
+    
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".popular-content", {
+      slidesPerView:1,
+      spaceBetween: 10,
+      autoplay: {
+        delay: 5500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints:{
+        280: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+        },
+
+      
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 10,
+      },
+      540: {
+        slidesPerView: 2,
+        spaceBetween: 10,
+      },
+      758: {
+        slidesPerView: 3,
+        spaceBetween: 15,
+      },
+      900: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+    },
+    });
+
+  </script>
+</body>
+
+</html>

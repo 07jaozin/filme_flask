@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+
+  <!-- Demo styles -->
+  
+
+<body>
+    <!-- headder -->
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="logo">
+                Movie<span>Vel</span>
+            </a>
+
+            <!--- Pesquisa -->
+            <form action="/pesquisa" method="post" class="search-box">
+                <input type="search" name="campo" id="search-input" value="{{ pesquisa_campo }}" placeholder="search movie">
+                <button type="submit" class='bx bx-search'></button>
+            </form>
+
+            <!--User -->
+            <a href="#" class="user">
+                <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="user-img">
+            </a>
+
+            <div class="navbar">
+                <a href="/#home" class="nav-link">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
+                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+
+                <a href="/pesquisa" class="nav-link nav-active">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                
+
+            </div>
+
+        </div>
+
+     </header>
+
+     <!-- Fim section-->
+      <!-- Section movies-->
+       <br>
+       <br>
+       <br>
+       <section class="movies container" id="movies">
+       {% if filmes == [] %}
+       <center>
+            <p>Nenhum filme encontrado</p>
+       </center>
+
+       {% else %}
+       
+        <div class="movies-content">
+            {% for filme in filmes %}
+            <div class="movie-box">
+                <img src="{{ url_for('static', filename='img/' + filme.foto)}}" alt="" class="movie-box-img">
+                <div class="box-text">
+                    <h2 class="movie-title">{{ filme.titulo }}</h2>
+                    <span class="movie-type">{{ filme.genero }}</span>
+                    <a href="{{ filme.perfil_video() }}" class="watch-btn">
+                        <i class='bx bx-right-arrow'></i>
+                    </a>
+                    
+                </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+        </div>
+       
+        
+       </section>
+
+       <!--Fim da sessão-->
+       
+    
+
+ 
+
+  
+  
+</body>
+
+</html>
