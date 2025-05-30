@@ -6,10 +6,10 @@
     --first-color:#000000;
     --first-color-alt: hsl(0, 0%, 93%);
     --white-color: #f1f1f1;
-    --text-color: hsl(24, 62%, 52%);
+    --text-color: hsl(0, 73%, 49%);
     --text-color-light: hsl(0, 100%, 100%);
-    --body-color: #1e1e2a;
-    --container-color: #2d2e37;
+    --body-color: #000000;
+    --container-color: #000000;
   
   }
   
@@ -26,7 +26,12 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: var(--body-color);
+    background: linear-gradient(8deg, hsla(0, 0%, 0%, 0.882) 14%, hsla(0, 0%, 0%, 0.592) 44%),url(../img/netflix.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
 }
 .container{
     position: relative;
@@ -37,7 +42,7 @@ body{
     box-shadow: 0 0 30px rgba(0, 0, 0, .2);
     overflow: hidden;
    margin: 20px;
-   border: 3px solid #ffb43a;
+   border: 3px solid #ff3a3a;
 }
 .form-box{
     position: absolute;
@@ -102,7 +107,7 @@ form{
 .btn{
     width: 100%;
     height: 48px;
-    background: var(--first-color);
+    background: #ff3a3a;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
@@ -137,7 +142,7 @@ form{
     
 }
 .toggle-box::before{
-    border: 3px solid #ffb43a;
+    border: 3px solid #ff3a3a;
     content: '';
     position: absolute;
     left: -250%;
@@ -170,6 +175,7 @@ form{
 .container.active .toggle-panel.toggle-left{
     left: -50%;
     transition-delay: .6s;
+    visibility: hidden;
 }
 .toggle-panel.toggle-right{
     right: -50%;
@@ -262,4 +268,35 @@ form{
     font-size: 20px;
     margin-right: 10px;
     color: #721c24;  
+  }
+
+.sucesso{
+    display: none;
+}
+.sucesso.visiviel {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.sucesso.visiviel::before {
+  content: "✓";
+  font-size: 20px;
+  margin-right: 10px;
+  color: #155724;  
+}
+
+
+
+
+  .desabilitado{
+    color: #333;
+    background-color: #888;
   }

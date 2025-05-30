@@ -11,10 +11,10 @@
 }
 
 :root{
-    --main-color:#ffb43a;
-    --hover-color: hsl(37,94%,57%);
-    --body-color:#1e1e2a;
-    --container-color:#2d2e37;
+    --main-color:#ff0000;
+    --hover-color: hsl(0, 78%, 43%);
+    --body-color:#000000;
+    --container-color:#000000;
     --text-color:#fcfeff;
 }
 html::-webkit-scrollbar{
@@ -87,6 +87,7 @@ header{
     background: var(--container-color);
     border-radius: 4rem;
     margin-right: 1rem;
+    border: 2px solid var(--main-color);
 }
 .bx{
     cursor: pointer;
@@ -205,7 +206,7 @@ header{
     justify-content: space-between;
     background: var(--container-color);
     padding: 8px 14px;
-    border: 1px solid hsl(200 100% 99% / 5%);
+    border-bottom: 2px solid hsl(0, 100%, 50%);
     margin-bottom: 2rem;
 }
 .heading-title{
@@ -336,11 +337,17 @@ header{
     margin-top: 4px;
 
 }
+.sinopse{
+    border-top: 2px solid #ff0000;
+    max-width: 80%;
+    padding-top: .7rem;
+}
 .tags{
     display: flex;
     align-items: center;
     column-gap: 8px;
     margin: 1rem 0;
+    background: transparent;
 }
 .tags span{
     background: var(--container-color);
@@ -410,6 +417,13 @@ header{
     color: var(--main-color);
     z-index: 1000;
 }
+.bx-send
+{
+    color: #ffb43a;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+}
 /*reponsividade*/
 @media (max-width: 1170px) {
     .navbar{
@@ -422,8 +436,8 @@ header{
         justify-content: space-evenly;
         row-gap: 1px;
         padding: 10px;
-        border-top: 1px solid hsl(200 100% 99% / 5%);
-        background: linear-gradient(8deg, hsl(240 17% 14% / 100%) 5%, hsl(240 17% 14% / 90%) 100%);
+        border-top: 1px solid hsla(0, 0%, 0%, 0.05);
+        background: linear-gradient(8deg, hsl(0, 0%, 0%) 5%, hsla(240, 10%, 13%, 0.9) 100%);
     }
     .nav-link .bx{
         font-size: 1.5rem;
@@ -499,6 +513,12 @@ header{
     }
 }
 @media (max-width: 514px){
+    .nav-link .bx{
+        font-size: 1.1rem;
+    }
+    .nav-link{
+        font-size: .9rem;
+    }
     .home{
         min-height: 380px;
         

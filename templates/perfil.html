@@ -49,14 +49,20 @@
     
     <div class="card">
         <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="img">
+        <br>
+        <a href="/deletar_foto_perfil" style="color: red;">Remover foto de perfil</a>
+        <br>
         <h1 class="name">{{ usuario.nome }}</h1>
         
         <h1 class="senha">{{ usuario.senha }}</h1>
+        
         <br>
         <br>
         
+        <br>
         <a href="/editar_perfil/{{ usuario.id }}" class="btn">editar perfil</a>
         <a class="btn excluir">excluir conta</a>
+       
     </div>
 
     <div class="confirmacao-modal" id="modal-excluir">

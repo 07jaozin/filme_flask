@@ -12,12 +12,12 @@
         .containerr {
             max-width: 600px;
             margin: 60px auto;
-            background-color: #2d2e37;
+            background-color: #000000;
             padding: 30px;
             border-radius: 50px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             color: #fcfeff;
-            border: 2px solid hsl(37,94%,57%);;
+            border: 2px solid hsl(0, 94%, 57%);;
             
             
         }
@@ -188,7 +188,7 @@
     <header>
         <div class="nav container">
             <a href="index.html" class="logo">
-                Movie<span>Vel</span>
+                Movie<span>PY</span>
             </a>
 
             
@@ -253,13 +253,19 @@
     <label for="data">Data:</label>
     <input type="text" id="data" name="data" required>
 
+    <label for="data">Descricao:</label>
+    <input type="text" id="descricao" name="descricao" max="10000" required>
+
+    <label for="data">Avaliação</label>
+    <input type="text" id="avaliacao" name="avaliacao" required>
+
     <!-- Campo de Foto -->
     <label for="foto">Foto:</label>
-    <input type="file" id="foto" accept="image/*" name="foto">
+    <input type="file" id="foto" accept="image/*" name="foto" required>
 
     <!-- Campo de Vídeo -->
     <label for="video">Vídeo:</label>
-    <input type="file" id="video" accept="video/*" name="video">
+    <input type="file" id="video" accept="video/*" name="video" required>
     
         <button type="submit">Cadastrar</button>
     </form>
@@ -273,11 +279,11 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Foto</th>
-          <th>Sabor</th>
+          
+          <th>Titulo</th>
           <th>Categoria</th>
-          <th>Preço</th>
-          <th>Peso</th>
+          <th>Lançamento</th>
+          <th>Genero</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -285,7 +291,6 @@
         {% for filme in filmes %}
         <tr>
           <td>{{ filme.id }}</td>
-          <td><img src="" alt="Foto Produto"></td>
           <td>{{ filme.titulo }}</td>
           <td>{{ filme.categoria }}</td>
           <td>{{ filme.lancamento }}</td>
@@ -301,28 +306,7 @@
       </tbody>
     </table>
   </div>
-<script>
-   
-    document.getElementById('data').addEventListener('input', function (e) {
-  let valor = e.target.value;
-
-  // Remove tudo que não for número
-  valor = valor.replace(/\D/g, '');
-
-  // Aplica as barras automaticamente
-  if (valor.length > 2 && valor.length <= 4) {
-    valor = valor.slice(0, 2) + '/' + valor.slice(2);
-  } else if (valor.length > 4) {
-    valor = valor.slice(0, 2) + '/' + valor.slice(2, 4) + '/' + valor.slice(4, 8);
-  }
-
-  // Limita a 10 caracteres (dd/mm/aaaa)
-  valor = valor.slice(0, 10);
-
-  e.target.value = valor;
-});
-
-</script>
+  <script src="{{ url_for('static', filename='js/gerenciamento.js')}}"></script>
 
 </body>
 </html>

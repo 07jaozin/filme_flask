@@ -14,8 +14,8 @@ class FilmeDAO:
         self.__cursor = self.__conexao.cursor()
 
     def insirir_filmes(self, filme):
-        sql = "INSERT INTO filme (titulo, genero, categoria, lancamento, foto, video ) VALUES (%s, %s, %s, %s, %s, %s)"
-        valores =(filme.titulo, filme.genero, filme.categoria, filme.lancamento, filme.foto, filme.video)
+        sql = "INSERT INTO filme (titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        valores =(filme.titulo, filme.genero, filme.categoria, filme.lancamento, filme.descricao, filme.avaliacao , filme.foto, filme.video)
         self.__cursor.execute(sql,valores)
         self.__conexao.commit()
         return self.__cursor.lastrowid
@@ -23,18 +23,21 @@ class FilmeDAO:
     
    
     def perfil_filme(self, id):
-        sql = "SELECT id, titulo, genero, lancamento, foto, video FROM filme WHERE id = %s"
+        sql = "SELECT id, titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video FROM filme WHERE id = %s"
         self.__cursor.execute(sql, (id,)) 
         resultados = self.__cursor.fetchall()
         print(resultados)
         
         for r in resultados:
-            id, titulo, genero, lancamento, foto, video = r 
+            id, titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video = r 
             filme = {
             'id': id,
             'titulo': titulo, 
             'genero': genero, 
-            'lancamento': lancamento, 
+            'categoria': categoria,
+            'lancamento': lancamento,
+            'descricao': descricao,
+            'avaliacao': avaliacao, 
             'foto': foto, 
             'video': video
             }
@@ -42,9 +45,9 @@ class FilmeDAO:
        
         return filme
     
-    def editar_filme_dao(self, titulo, genero, categoria, lancamento, foto, video, id):
-        sql = "UPDATE filme SET titulo = %s, genero = %s, categoria = %s, lancamento = %s WHERE id = %s"
-        valores = (titulo, genero, categoria, lancamento, id)
+    def editar_filme_dao(self, titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video, id):
+        sql = "UPDATE filme SET titulo = %s, genero = %s, categoria = %s, lancamento = %s, descricao = %s, avaliacao = %s WHERE id = %s"
+        valores = (titulo, genero, categoria, lancamento, descricao, avaliacao, id)
         self.__cursor.execute(sql,valores)
         self.__conexao.commit()
         if foto != '':
@@ -70,29 +73,29 @@ class FilmeDAO:
         self.__conexao.commit()
 
     def listar_filme(self):
-        sql = "Select id, titulo, genero, categoria, lancamento, foto, video from filme"
+        sql = "Select id, titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video from filme"
         self.__cursor.execute(sql)
         resultados = self.__cursor.fetchall()
         lista = []
 
         for r in resultados:
-            id, titulo, genero, categoria, lancamento, foto, video = r 
-            novo_filme = Filmes(titulo, genero, categoria, lancamento, foto, video ,id)
+            id, titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video = r 
+            novo_filme = Filmes(titulo, genero, categoria, lancamento,descricao, avaliacao, foto, video ,id)
             lista.append(novo_filme)
             
         print(lista)
         return lista
     
     def pesquisa(self, campo):
-        sql = "SELECT id, titulo, genero, categoria, lancamento, foto, video FROM filme WHERE titulo LIKE %s"
+        sql = "SELECT id, titulo, genero, categoria, lancamento, descricao, avaliacao, foto, video FROM filme WHERE titulo LIKE %s"
         parametro = f"{campo}%"
         self.__cursor.execute(sql, (parametro,))
         resultados = self.__cursor.fetchall()
         print(resultados)
         lista = []
         for r in resultados:
-            id, titulo, genero, categoria, lancamento, foto, video = r 
-            filme = Filmes(titulo, genero, categoria, lancamento, foto, video ,id)
+            id, titulo, genero, categoria, lancamento,descricao, avaliacao, foto, video = r 
+            filme = Filmes(titulo, genero, categoria, lancamento,descricao, avaliacao, foto, video ,id)
             lista.append(filme)
             
        

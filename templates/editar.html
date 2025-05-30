@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
-    <title>Cadastrar Produto</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Editar</title>
     <style>
         
 
         .containerr {
             max-width: 600px;
             margin: 60px auto;
-            background-color: #2d2e37;
+            background-color: #000000;
             padding: 30px;
             border-radius: 50px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             color: #fcfeff;
-            border: 2px solid hsl(37,94%,57%);;
+            border: 2px solid hsl(0, 100%, 50%);;
             
             
         }
@@ -249,6 +251,11 @@
     <label for="data">Data:</label>
     <input type="text" id="data" name="data-editar" value="{{ filme.lancamento }}" required>
 
+    <label for="data">Descricao:</label>
+    <input type="text" id="descricao-editar" name="descricao-editar" value="{{ filme.descricao }}" max="10000" required>
+
+    <label for="data">Avaliação</label>
+    <input type="text" id="avaliacao" name="avaliacao-editar" value="{{ filme.avaliacao }}" required>
     <!-- Campo de Foto -->
     <label for="foto">Foto:</label>
     <input type="file" id="foto" accept="image/*" name="foto-editar">
@@ -261,20 +268,7 @@
     </form>
 </div>
 
-<script>
-    const precoInput = document.getElementById('preco');
-
-    precoInput.addEventListener('input', function () {
-        // Substitui tudo que não for número ou vírgula
-        this.value = this.value.replace(/[^0-9,]/g, '');
-        
-        // Garante que só exista uma vírgula
-        const parts = this.value.split(',');
-        if (parts.length > 2) {
-            this.value = parts[0] + ',' + parts[1].replace(/,/g, '');
-        }
-    });
-</script>
+<script src="{{ url_for('static', filename='js/gerenciamento.js')}}"></script>
 
 </body>
 </html>

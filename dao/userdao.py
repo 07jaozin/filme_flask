@@ -91,5 +91,12 @@ class UserDAO:
         self.__conexao.commit()
         
         return self.__cursor.rowcount > 0
+    
+    def deletar_foto_perfil(self, id, foto):
+        sql = "UPDATE usuario SET foto = %s WHERE id = %s"
+        valores = (foto, id)
+        self.__cursor.execute(sql, valores)
+        self.__conexao.commit()
+        return True
    
        

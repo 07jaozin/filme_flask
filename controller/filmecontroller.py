@@ -15,7 +15,7 @@ class FilmeController:
        
 
         
-    def adicionar_filme(self, titulo, genero, categoria, data, foto, video):
+    def adicionar_filme(self, titulo, genero, categoria, data, descricao, avaliacao, foto, video):
         
         extensao = os.path.splitext(foto.filename)[1]
         extensao_video = os.path.splitext(video.filename)[1]
@@ -26,7 +26,7 @@ class FilmeController:
         caminho_video = os.path.join(current_app.config['UPLOAD_VIDEO'], nome_arquivo_video)
         foto.save(caminho)
         video.save(caminho_video)
-        novo_filme = Filmes( titulo.title(), genero, categoria, data, nome_arquivo, nome_arquivo_video)
+        novo_filme = Filmes( titulo.title(), genero, categoria, data,descricao, avaliacao, nome_arquivo, nome_arquivo_video)
         #self.__lista_pessoas.append(novo_filme)
         self.__dao.insirir_filmes(novo_filme)
         self.__dao.listar_filme()
@@ -43,7 +43,7 @@ class FilmeController:
     
     
     
-    def edita_filme(self, titulo, genero, categoria, data, foto, video, id):
+    def edita_filme(self, titulo, genero, categoria, data,descricao, avaliacao, foto, video, id):
         
         nome_arquivo = ''
         nome_arquivo_video = ''
@@ -61,7 +61,7 @@ class FilmeController:
             caminho_video = os.path.join(current_app.config['UPLOAD_VIDEO'], nome_arquivo_video)
             video.save(caminho_video)
 
-        self.__dao.editar_filme_dao(titulo.title(), genero, categoria, data, nome_arquivo, nome_arquivo_video, id)
+        self.__dao.editar_filme_dao(titulo.title(), genero, categoria, data, descricao, avaliacao, nome_arquivo, nome_arquivo_video, id)
         return True
             
                 

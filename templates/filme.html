@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Swiper demo</title>
+  <title>Filmes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -19,7 +19,7 @@
     <header>
         <div class="nav container">
             <a href="index.html" class="logo">
-                Movie<span>Vel</span>
+                Movie<span>PY</span>
             </a>
 
             <!--- Pesquisa -->
@@ -77,8 +77,34 @@
 
                 <div class="tags">
                     <span>{{ perfil.genero }}</span>
+                    
                     <span>4K</span>
                 </div>
+                <div class="rating">
+                   
+                    {% set avaliacao = perfil.avaliacao|float %}
+                    {% set estrelas_cheias = avaliacao|round(0, 'floor') %}
+                    {% set tem_meia_estrela = (avaliacao - estrelas_cheias) >= 0.25 and (avaliacao - estrelas_cheias) < 0.75 %}
+                    {% set estrelas_vazias = 5 - estrelas_cheias - (1 if tem_meia_estrela else 0) %}
+                    
+                   
+                    {% for i in range(estrelas_cheias|int) %}
+                      <i class='bx bxs-star'></i>
+                    {% endfor %}
+                    
+                    
+                    {% if tem_meia_estrela %}
+                      <i class='bx bxs-star-half'></i>
+                    {% endif %}
+                    
+                   
+                    {% for i in range(estrelas_vazias|int) %}
+                      <i class='bx bx-star'></i>
+                    {% endfor %}
+                    
+                    
+                </div>
+                <br>
                 <a href="#" class="watch-btn">
                    
                     <span>Veja o trailer</span>
@@ -94,10 +120,23 @@
             </div>
         </div>
      </div>
-
-     <div class="next-page">
-        <a href="{{ url_for('static', filename='video/' + perfil.video)}}" download="" class="next-btn">Abaixar trailer</a>
+     <br>
+     <br>
+     <center>
+     <div class="sinopse">
+     
+     <p>{{ perfil.descricao }}</p>
+    
     </div>
+    </center>
+     <div class="next-page">
+        <a href="{{ url_for('static', filename='video/' + perfil.video)}}" download="" class="next-btn">download do trailer</a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     
 

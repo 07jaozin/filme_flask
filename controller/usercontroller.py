@@ -82,6 +82,15 @@ class PessoaController:
     def excluir_usuario_controler(self, id):
         self.__dao.deletar_usuario(id)
         return True
+    
+    def remover_foto(self, id):
+        foto = 'padrao.jpg'
+        if self.__dao.deletar_foto_perfil(id, foto):
+            return True
+        else:
+            return False
+        
+        
         
 
         

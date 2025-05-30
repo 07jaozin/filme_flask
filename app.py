@@ -13,7 +13,8 @@ filmeControler = FilmeController()
 def principal():
     if 'logado' not in session:
         return redirect('/login')
-    print(session['id'])
+    
+    
     usuario = userControler.perfil(session['id'])
     print(usuario)
     filmes = filmeControler.listar_filmes()
@@ -53,9 +54,11 @@ def gerenciamento():
         genero = request.form.get('genero')
         categoria = request.form.get('categoria')
         data = request.form.get('data')
+        descricao = request.form.get('descricao')
+        avaliacao = request.form.get('avaliacao')
         foto = request.files['foto']
         video = request.files['video']
-        filmeControler.adicionar_filme(titulo, genero, categoria, data, foto, video)
+        filmeControler.adicionar_filme(titulo, genero, categoria, data, descricao, avaliacao, foto, video)
         return redirect('/gerenciamento')
 
 
@@ -105,25 +108,33 @@ def logout():
 
 @app.route('/editar_filme/<int:id>', methods = ['POST', 'GET'])
 def edita_filme(id):
+    if 'logado' not in session:
+        return redirect('/login')
     if request.method == 'POST':
         titulo = request.form.get('titulo-editar')
         genero = request.form.get('genero-editar')
         categoria = request.form.get('categoria-editar')
         data = request.form.get('data-editar')
+        descricao = request.form.get('descricao-editar')
+        avaliacao = request.form.get('avaliacao-editar')
         foto = request.files['foto-editar']
         video = request.files['video-editar']
-        filmeControler.edita_filme(titulo, genero, categoria, data, foto, video, id)
+        filmeControler.edita_filme(titulo, genero, categoria, data, descricao, avaliacao, foto, video, id)
         return redirect('/gerenciamento')
     else:
         filme = filmeControler.perfil_filme(id)
         return render_template("editar.html", filme = filme)
 @app.route('/excluir_fime/<int:id>')
 def excluir_filme(id):
+    if 'logado' not in session:
+        return redirect('/login')
     filmeControler.excluir_filme_controller(id)
     return redirect('/gerenciamento')
 
 @app.route('/perfil_usuario/<int:id>', methods = ['GET', 'POST'])
 def perfil_usuario(id):
+    if 'logado' not in session:
+        return redirect('/login')
     if request.method == 'POST':
         nome = request.form.get('nome-editar')
         senha = request.form.get('senha-editar')
@@ -136,6 +147,8 @@ def perfil_usuario(id):
         return render_template("perfil.html", usuario = usuario)
 @app.route('/excluir_perfil/<int:id>')
 def excluir_perfil(id):
+    if 'logado' not in session:
+        return redirect('/login')
     session.pop('primeira_vez', default=None)
     session.pop('logado', default=None)
     session.pop('id', default=None)
@@ -144,6 +157,8 @@ def excluir_perfil(id):
 
 @app.route('/editar_perfil/<int:id>', methods = ['GET', 'POST'])
 def editar_perfil(id):
+     if 'logado' not in session:
+        return redirect('/login')
      if request.method == 'POST':
         nome = request.form.get('nome-editar')
         senha = request.form.get('senha-editar')
@@ -155,3 +170,12 @@ def editar_perfil(id):
      else:
          usuario = userControler.perfil(id)
          return render_template("editar_usuario.html", usuario = usuario)
+
+@app.route('/deletar_foto_perfil') 
+def deletar_foto_perfil():
+    if 'logado' not in session:
+        return redirect('/login')
+    id = session['id']
+    if userControler.remover_foto(id):
+        return redirect(f'/perfil_usuario/{id}')
+    return "erro", 404

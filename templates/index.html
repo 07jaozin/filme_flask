@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Swiper demo</title>
+  <title>Filmes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -19,7 +19,7 @@
     <header>
         <div class="nav container">
             <a href="index.html" class="logo">
-                Movie<span>Vel</span>
+                Movie<span>PY</span>
             </a>
 
             
@@ -83,7 +83,7 @@
      <!--Populares-->
      <section class="popular container" id="popular">
         <div class="heading">
-            <h2 class="heading-title">Popular Movies </h2>
+            <h2 class="heading-title">Populares</h2>
             <div class="swiper-btn">
 
                 <div class="swiper-button-prev"></div>
@@ -126,7 +126,7 @@
       <!-- Section movies-->
        <section class="movies container" id="movies">
         <div class="heading">
-            <h2 class="heading-title">Movies and Show </h2>
+            <h2 class="heading-title">Show </h2>
         </div>
 
         
@@ -162,6 +162,7 @@
     var swiper = new Swiper(".popular-content", {
       slidesPerView:1,
       spaceBetween: 10,
+      loop: true,
       autoplay: {
         delay: 5500,
         disableOnInteraction: false,

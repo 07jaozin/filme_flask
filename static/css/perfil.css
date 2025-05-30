@@ -12,21 +12,21 @@
 
 :root {
     --background-color: #e2e1e0;
-    --card-background: #1d2630;
+    --card-background: #000000;
     --button-background: #19A68C;
     --button-hover-background: #e2e1e0;
     --text-color: #fff;
     --main-color:#ffb43a;
     --hover-color: hsl(37,94%,57%);
-    --body-color:#1e1e2a;
-    --container-color:#2d2e37;
+    --body-color:#000000;
+    --container-color:#000000;
     
 }
 a{
     text-decoration: none;
 }
 body {
-    background: #1e1e2a;
+    background: #000;
     text-align: center;
     font-family: monospace;
     margin: 0;
@@ -42,7 +42,7 @@ body {
     margin-top: 60px;
     box-shadow: 0 12px 13px rgba(0, 0, 0, 0.16);
     transition: transform 0.3s ease;
-    border: 2px solid #ffb43a;
+    border: 2px solid #ff0000;
 }
 
 .card:hover {
@@ -72,9 +72,9 @@ body {
 .btn {
     padding: 15px 10px;
     outline: none;
-    background: var(--button-background);
+    background: transparent;
     margin-top: 20px;
-    border: none;
+    border: 2px solid #ff0000;
     height: 40px;
     width: 35%;
     color: var(--text-color);
@@ -88,8 +88,7 @@ body {
 }
 
 .btn:hover {
-    color: var(--button-background);
-    background: var(--button-hover-background);
+    
     cursor: pointer;
 }
 
@@ -128,13 +127,13 @@ body {
 
   .modal-conteudo {
     
-    background: #1d2630;
+    background: #000;
     padding: 20px 30px;
     border-radius: 10px;
     text-align: center;
     max-width: 90%;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    border: 2px solid #ffb43a;
+    border: 2px solid #ff0000;
   }
   
   .modal-conteudo h2 {
@@ -163,9 +162,9 @@ body {
   }
   
   .btn-cancelar {
-    background-color: #1d2630;
+    background-color: #000;
     color: white;
-    border: 2px solid #ffb43a;
+    border: 2px solid #ff0000;
   }
   
   @media (min-width: 600px) {

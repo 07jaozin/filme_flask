@@ -1,12 +1,14 @@
 class Filmes:
 
-    def __init__(self, titulo, genero, categoria, lancamento, foto, video, id = None):
+    def __init__(self, titulo, genero, categoria, lancamento,descricao, avaliacao, foto, video, id = None):
 
         self.__id = id
         self.__titulo = titulo
         self.__genero = genero
         self.__categoria = categoria
         self.__lancamento = lancamento
+        self.__descricao = descricao
+        self.__avaliacao = avaliacao
         self.__foto = foto
         self.__video = video
 
@@ -32,6 +34,12 @@ class Filmes:
     def lancamento(self):
         return self.__lancamento
     @property
+    def descricao(self):
+        return self.__descricao
+    @property
+    def avaliacao(self):
+        return self.__avaliacao
+    @property
     def foto(self):
         return self.__foto
     @property
@@ -50,6 +58,12 @@ class Filmes:
     @lancamento.setter
     def lancamento(self, lancamento):
         self.__lancamento = lancamento
+    @descricao.setter
+    def descricao(self, descricao):
+        self.__descricao = descricao
+    @avaliacao.setter
+    def avaliacao(self, avaliacao):
+        self.__avaliacao = avaliacao
     @foto.setter
     def foto(self, foto):
         self.__foto = foto
