@@ -1,6 +1,6 @@
 class Filmes:
 
-    def __init__(self, titulo, genero, categoria, lancamento,descricao, avaliacao, foto, video, id = None):
+    def __init__(self, titulo, genero, categoria, lancamento,descricao, avaliacao, foto, video, id = None, canais = []):
 
         self.__id = id
         self.__titulo = titulo
@@ -11,12 +11,14 @@ class Filmes:
         self.__avaliacao = avaliacao
         self.__foto = foto
         self.__video = video
+        self.__canais = canais
 
     def perfil_video(self):
         if self.__id is not None:
             return f'filme/{self.__id}'
         
         return f'filme/desconhecido'
+    
     
     @property
     def id(self):
@@ -45,6 +47,9 @@ class Filmes:
     @property
     def video(self):
         return self.__video
+    @property
+    def canais(self):
+        return self.__canais
     
     @titulo.setter
     def titulo(self, titulo):

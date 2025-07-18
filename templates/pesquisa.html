@@ -18,33 +18,35 @@
     <!-- headder -->
     <header>
         <div class="nav container">
-            <a href="index.html" class="logo">
-                Movie<span>PY</span>
-            </a>
+           
 
             <!--- Pesquisa -->
             <form action="/pesquisa" method="post" class="search-box">
                 <input type="search" name="campo" id="search-input" value="{{ pesquisa_campo }}" placeholder="search movie">
                 <button type="submit" class='bx bx-send'></button>
             </form>
+            <button class="ver-todos-btn">Filtrar</button>
 
-            <!--User -->
-            <a href="#" class="user">
-                <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="user-img">
-            </a>
-
+           
             <div class="navbar">
-                <a href="/#home" class="nav-link">
+                <a href="/" class="nav-link">
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                
+                {% if usuario != '' %}
                 <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
                 </a>
+                {% else %}
+                <a href="/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+                {% endif %}
 
-                <a href="/pesquisa" class="nav-link nav-active">
+
+                <a href="/pesquisa" class="nav-link  nav-active">
                     <i class='bx bx-compass'></i>
                     <div class="nav-linl-title">Explore</div>
                 </a>
@@ -54,10 +56,17 @@
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
+                {% if usuario != '' %}
                 <a href="/logout" class="nav-link">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
                 </a>
+                {% else %}
+                <a href="/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Logar</div>
+                </a>
+                {% endif %}
                 
 
             </div>
@@ -72,6 +81,56 @@
        <br>
        <br>
        <section class="movies container" id="movies">
+        <div class="video-container">
+            <div class="form-container">
+                <h2 class="h2">Filtrar Filmes</h2>
+                <form action="/filtrar" method="post">
+                  
+                  <div class="form-group">
+                    <label for="data_inicio">Data de Lançamento - Início</label>
+                    <input type="date" id="data_inicio" name="data_inicio">
+                  </div>
+            
+                  <div class="form-group">
+                    <label for="data_fim">Data de Lançamento - Fim</label>
+                    <input type="date" id="data_fim" name="data_fim">
+                  </div>
+            
+                  <div class="form-group">
+                    <label for="avaliacao">Avaliação Mínima</label>
+                    <select id="avaliacao" name="avaliacao_filtro">
+                      <option value="">Todas</option>
+                      <option value="0">Sem avaliações</option>
+                      <option value="1">1 estrela</option>
+                      <option value="2">2 estrelas</option>
+                      <option value="3">3 estrelas</option>
+                      <option value="4">4 estrelas</option>
+                      <option value="5">5 estrelas</option>
+                    </select>
+                  </div>
+            
+                  <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" name="categoria_filtro">
+                      <option value="">Todas</option>
+                      <option value="ação">Ação</option>
+                      <option value="comédia">Comédia</option>
+                      <option value="Ficção cientifica">Ficção cientifica</option>
+                      <option value="drama">Drama</option>
+                      <option value="terror">Terror</option>
+                      <option value="suspense">Suspense</option>
+                    </select>
+                  </div>
+                  <i class='bx bx-x close-video'></i>
+                  <div class="button-container">
+                    <button type="submit">Filtrar</button>
+                  </div>
+                
+                </form>
+               
+              </div>
+             
+        </div>
        {% if filmes == [] %}
        <center>
             <p>Nenhum filme encontrado</p>
@@ -103,7 +162,25 @@
        
     
 
- 
+       <script>
+
+ let video = document.querySelector('.video-container');
+
+ let closebtn = document.querySelector('.close-video');
+ let ver_todos_btn = document.querySelector('.ver-todos-btn')
+
+ver_todos_btn.onclick = () =>{
+    video.classList.add('show-video');
+    
+  
+}
+
+ closebtn.onclick = () =>{
+  video.classList.remove('show-video');
+
+ };
+       </script>
+
 
   
   

@@ -15,7 +15,7 @@ class FilmeController:
        
 
         
-    def adicionar_filme(self, titulo, genero, categoria, data, descricao, avaliacao, foto, video):
+    def adicionar_filme(self, titulo, genero, categoria, data, descricao, avaliacao, foto, video, canais):
         
         extensao = os.path.splitext(foto.filename)[1]
         extensao_video = os.path.splitext(video.filename)[1]
@@ -26,8 +26,7 @@ class FilmeController:
         caminho_video = os.path.join(current_app.config['UPLOAD_VIDEO'], nome_arquivo_video)
         foto.save(caminho)
         video.save(caminho_video)
-        novo_filme = Filmes( titulo.title(), genero, categoria, data,descricao, avaliacao, nome_arquivo, nome_arquivo_video)
-        #self.__lista_pessoas.append(novo_filme)
+        novo_filme = Filmes( titulo.title(), genero, categoria, data,descricao, avaliacao, nome_arquivo, nome_arquivo_video, canais = canais)
         self.__dao.insirir_filmes(novo_filme)
         self.__dao.listar_filme()
         self.__lista_filme.append(novo_filme)
@@ -43,7 +42,7 @@ class FilmeController:
     
     
     
-    def edita_filme(self, titulo, genero, categoria, data,descricao, avaliacao, foto, video, id):
+    def edita_filme(self, titulo, genero, categoria, data,descricao, foto, video, id, canais):
         
         nome_arquivo = ''
         nome_arquivo_video = ''
@@ -61,7 +60,7 @@ class FilmeController:
             caminho_video = os.path.join(current_app.config['UPLOAD_VIDEO'], nome_arquivo_video)
             video.save(caminho_video)
 
-        self.__dao.editar_filme_dao(titulo.title(), genero, categoria, data, descricao, avaliacao, nome_arquivo, nome_arquivo_video, id)
+        self.__dao.editar_filme_dao(titulo.title(), genero, categoria, data, descricao, nome_arquivo, nome_arquivo_video, canais, id)
         return True
             
                 
@@ -74,11 +73,21 @@ class FilmeController:
         self.__lista_filme_pesquisa = self.__dao.pesquisa(campo)
         self.__lista_campo_pesquisa = campo
         return True
-        
+    
+    def filtrar_controller(self, data_inicio, data_fim, avaliacao, categoria):
+         
+         self.__lista_filme_pesquisa = self.__dao.filtrar(data_inicio, data_fim, avaliacao, categoria, self.__lista_campo_pesquisa)
+         session['primeira_vez'] = True
+
+         return True
+
     def perfil_filme(self, id):
+        self.__dao.atualiza_avaliacao_filmeDao(id)
         return self.__dao.perfil_filme(id)
     
     def excluir_filme_controller(self, id):
+        self.__dao.excluir_canais_filme(id)
+        self.__dao.excluir_comentario_filme(id)
         self.__dao.excluir_filme(id)
         return True
     

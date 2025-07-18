@@ -1,12 +1,13 @@
 class Pessoas: # definindo uma classe 
    
 
-    def __init__(self, nome, senha, foto, id = None): # init seria o que iria contruiir meu objeto, chamado de construtor
+    def __init__(self, nome, senha, foto, tipo, id = None): # init seria o que iria contruiir meu objeto, chamado de construtor
         
         self.__id = id
         self.__nome = nome.title()
         self.__senha = senha
         self.__foto = foto
+        self.__tipo = tipo
       
     def urlDoPessoas(self):
         if self.__id is not None: 
@@ -18,6 +19,10 @@ class Pessoas: # definindo uma classe
     @property
     def id(self):
         return self.__id
+    
+    @property
+    def tipo(self):
+        return self.__tipo
     
     @property
     def nome(self):
@@ -39,3 +44,7 @@ class Pessoas: # definindo uma classe
     @foto.setter
     def foto(self, foto):
         self.__foto = foto
+
+    @tipo.setter
+    def tipo(self, tipo):
+        self.__tipo = tipo

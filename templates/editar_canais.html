@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css')}}">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Cadastrar Produto</title>
+   
+</head>
+<body>
+
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="logo">
+                Movie<span>PY</span>
+            </a>
+
+            
+            <!--User -->
+           
+
+            <div class="navbar">
+                <a href="/" class="nav-link">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
+                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+
+                <a href="/pesquisa" class="nav-link">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link nav-active">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                
+
+            </div>
+
+        </div>
+
+     </header>
+<br>
+<br>
+<br>
+<div class="containerr">
+    <h2>Cadastrar canal</h2>
+    <form action="/editar_canais/{{ canal.id }}" method="POST" enctype="multipart/form-data">
+        <label for="titulo">Nome:</label>
+    <input type="text" id="titulo" name="nome_canal-editar" value="{{ canal.nome }}" required>
+
+    <!-- Campo de Gênero -->
+    <label for="genero">Link</label>
+    <input type="text" id="genero" name="link_canal-editar" value="{{ canal.link }}" required>
+
+   
+
+    <!-- Campo de Foto -->
+    <label for="foto">Foto:</label>
+    <input type="file" id="foto" accept="image/*" name="foto_canal-editar">
+
+ 
+    
+        <button type="submit">Cadastrar</button>
+    </form>
+</div>
+
+  <script src="{{ url_for('static', filename='js/gerenciamento.js')}}"></script>
+
+</body>
+</html>

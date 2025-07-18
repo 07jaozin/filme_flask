@@ -24,20 +24,29 @@
 
             
             <!--User -->
+            {% if usuario != '' %}
             <a href="#" class="user">
                 <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="user-img">
             </a>
+            {% endif %}
 
             <div class="navbar">
                 <a href="#home" class="nav-link nav-active">
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                
+                {% if usuario != '' %}
                 <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
                 </a>
+                {% else %}
+                <a href="/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+                {% endif %}
+
 
                 <a href="/pesquisa" class="nav-link">
                     <i class='bx bx-compass'></i>
@@ -49,10 +58,17 @@
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
+                {% if usuario != '' %}
                 <a href="/logout" class="nav-link">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
                 </a>
+                {% else %}
+                <a href="/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Logar</div>
+                </a>
+                {% endif %}
                 
 
             </div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/erro.css')}}">
+    <title>Web Design Mastery | 404 Not Found Page</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__logo"><a href="/">Clique aqui para voltar para pagina inicial</a></div>
+    </nav>
+    <div class="container">
+      <div class="header">
+        <h1>404</h1>
+        <h3>Erro de permissão!</h3>
+      </div>
+      <img src="{{ url_for('static', filename='img/erro.png')}}" alt="not found" />
+      <div class="footer">
+        {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+          {% for mensagem in mensagens %}
+        <p id="p">{{ mensagem }}</p>
+        {% endfor %}
+        {% endif %}
+      {% endwith %}
+        <button id="button" onclick="voltar()">Voltar</button>
+      </div>
+    </div>
+
+    <script>
+        const p = document.getElementById('p').textContent;
+        console.log(p)
+        if(p === 'Desculpe-me, mas voce não tem permissão de acessar esta pagina, por favor se cadastre para poder comentar'){
+                document.getElementById('button').innerText = 'Cadastrar'
+            }
+        function voltar(){
+           const button = document.getElementById('button').textContent;
+
+           if( button === 'Voltar'){
+                window.location.href = '/'
+           }
+           else{
+            window.location.href = '/login'
+           }
+           
+           
+        }
+    </script>
+  </body>
+</html>

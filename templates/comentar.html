@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css')}}">
+
+
+    <title>Comentar</title>
+    
+</head>
+<body>
+
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="logo">
+                Movie<span>Vel</span>
+            </a>
+
+            
+            <!--User -->
+           
+
+            <div class="navbar">
+                <a href="/" class="nav-link">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                {% if usuario != '' %}
+                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+                {% else %}
+                <a href="/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Perfil</div>
+                </a>
+                {% endif %}
+
+
+                <a href="/pesquisa" class="nav-link nav-active">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+                {% if usuario != '' %}
+                <a href="/logout" class="nav-link">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                {% else %}
+                <a href="/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Logar</div>
+                </a>
+                {% endif %}
+                
+
+            </div>
+
+        </div>
+
+     </header>
+
+<br>
+<br>
+<div class="containerr">
+    
+    
+    <h2>Avaliar</h2>
+    <form action="/comentarios/{{ filme.id }}" method="POST" enctype="multipart/form-data">
+       
+    <!-- Campo de Data -->
+    
+    <label for="data">Avaliação</label>
+    <input type="text" id="avaliacao" name="avaliacao-comentarios" required>
+
+    <label for="data">Comentario</label>
+    <textarea type="text" name="comentario"required></textarea>
+   
+    
+        <br>
+        <br>
+        <button type="submit">Avaliar</button>
+    </form>
+</div>
+
+<script>
+    const avaliacao = document.querySelector('#avaliacao');
+
+avaliacao.addEventListener("keydown", function(event) {
+  const key = event.key;
+
+ 
+  if (
+    (key >= '0' && key <= '9') || 
+    key === '.' ||
+    key === 'Backspace' || 
+    key === 'Delete' || 
+    key === 'ArrowLeft' || 
+    key === 'ArrowRight' || 
+    key === 'Tab'
+  ) {
+    const valorAtual = avaliacao.value;
+    const novoValor = valorAtual + key;
+
+    // Permitir digitação se resultado for menor ou igual a 5
+    const numero = parseFloat(novoValor);
+    if (numero > 5) {
+      event.preventDefault();
+    }
+  } else {
+    // Bloquear qualquer tecla que não seja número, ponto ou controle
+    event.preventDefault();
+  }
+});
+
+
+</script>
+</body>
+</html>

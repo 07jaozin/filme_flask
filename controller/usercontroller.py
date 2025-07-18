@@ -13,13 +13,13 @@ class PessoaController:
        
 
         
-    def adicionar_pessoa(self, nome, senha, foto):
+    def adicionar_pessoa(self, nome, senha, foto, tipo):
         nome_ajustado_principal = nome.strip()
         senha_ajustado = senha.replace("","")
         print('foto:',foto)
         if foto.filename == '':
             
-            novo_pessoa = Pessoas( nome_ajustado_principal.lower(), senha, 'padrao.jpg')
+            novo_pessoa = Pessoas( nome_ajustado_principal.lower(), senha, 'padrao.jpg', tipo.lower())
         else:
             extensao = os.path.splitext(foto.filename)[1]
             nome_ajustado = secure_filename(nome.lower().replace(" ", "_"))
@@ -27,7 +27,7 @@ class PessoaController:
             caminho = os.path.join(current_app.config['UPLOAD_FOLDER'], nome_arquivo)
             foto.save(caminho)
             print('diminutivo', nome.lower())
-            novo_pessoa = Pessoas( nome_ajustado_principal.lower(), senha_ajustado, nome_arquivo)
+            novo_pessoa = Pessoas( nome_ajustado_principal.lower(), senha_ajustado, nome_arquivo, tipo.lower())
         #self.__lista_pessoas.append(novo_pessoa)
         self.__dao.insirir_usuario(novo_pessoa)
         self.__dao.listar_usuarios()
@@ -73,6 +73,9 @@ class PessoaController:
         if funcao:
             session['logado'] = True
             session['id'] = funcao['id']
+            if funcao['tipo'] == 'adm':
+                print("olaaaaaaaaa")
+                session['adm'] = True
             
             return True
         else:

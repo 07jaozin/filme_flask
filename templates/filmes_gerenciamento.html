@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css')}}">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Cadastrar Produto</title>
+   
+</head>
+<body>
+
+  <header>
+    <div class="nav container">
+        <a href="index.html" class="logo">
+            Movie<span>PY</span>
+        </a>
+
+        
+        <!--User -->
+       
+
+        <div class="navbar">
+            <a href="/" class="nav-link">
+                <i class='bx bx-home'></i>
+                <div class="nav-linl-title">Inicio</div>
+            </a>
+            
+            <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                <i class='bx bx-user'></i>
+                <div class="nav-linl-title">Perfil</div>
+            </a>
+
+            <a href="/pesquisa" class="nav-link">
+                <i class='bx bx-compass'></i>
+                <div class="nav-linl-title">Explore</div>
+            </a>
+
+            <a href="/gerenciamento" class="nav-link nav-active">
+                <i class='bx bx-tv'></i>
+                <div class="nav-linl-title">Gerenciamento</div>
+            </a>
+
+            <a href="/logout" class="nav-link">
+                <i class='bx bx-exit'></i>
+                <div class="nav-linl-title">Sair</div>
+            </a>
+            
+
+        </div>
+
+    </div>
+
+ </header>
+<br>
+<br>
+<br>
+<div class="containerr">
+    <h2>Cadastrar Filme</h2>
+    <form action="/filme_gerenciamento" method="POST" enctype="multipart/form-data">
+        <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <!-- Campo de Gênero -->
+    <label for="genero">Gênero:</label>
+    <input type="text" id="genero" name="genero" required>
+
+    <!-- Campo de Categoria -->
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" name="categoria" required>
+        <option value="home">Home</option>
+        <option value="popular">Popular</option>
+        <option value="show">Show</option>
+    </select>
+
+    <!-- Campo de Data -->
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required>
+    <br>
+    <br>
+    <label for="data">Descricao:</label>
+    <input type="text" id="descricao" name="descricao" max="10000" required>
+
+    <label>Onde assistir</label>
+  <div class="checkbox-group">
+  {% for c in canais_lista %}
+    <label class="custom-checkbox">
+      <input type="checkbox" name="canais" value="{{ c.id }}">
+      <span class="checkmark"></span>
+      {{ c.nome }}
+    </label>
+  {% endfor %}
+</div>
+    <!-- Campo de Foto -->
+    <label for="foto">Foto:</label>
+    <input type="file" id="foto" accept="image/*" name="foto" required>
+
+    <!-- Campo de Vídeo -->
+    <label for="video">Vídeo:</label>
+    <input type="file" id="video" accept="video/*" name="video" required>
+    
+        <button type="submit">Cadastrar</button>
+    </form>
+</div>
+<br>
+
+
+<br>
+<br>
+<div class="table-container">
+    <h1>Todos os filmes</h1>
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          
+          <th>Titulo</th>
+          <th>Categoria</th>
+          <th>Lançamento</th>
+          <th>Genero</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for filme in filmes %}
+        <tr>
+          <td>{{ filme.id }}</td>
+          <td>{{ filme.titulo }}</td>
+          <td>{{ filme.categoria }}</td>
+          <td>{{ filme.lancamento }}</td>
+          <td>{{ filme.genero }}</td>
+          <td>
+            <a href="/editar_filme/{{ filme.id }}"  class="edit-btn">Editar</a>
+            <a href="/excluir_fime/{{ filme.id }}"  class="delete-btn">Excluir</a>
+          </td>
+        </tr>
+        {% endfor %}
+      
+       
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
