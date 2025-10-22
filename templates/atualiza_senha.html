@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Nova Senha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/atualizasenha.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Criar Nova Senha</h2>
+        <form id="passwordForm">
+            <div class="form-group">
+                <label for="newPassword">Nova Senha</label>
+                <input type="password" id="newPassword" name="newPassword" required minlength="6">
+                <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+                <div class="error" id="newPasswordError">A senha deve ter pelo menos 6 caracteres.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Senha</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6">
+                <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+                <div class="error" id="confirmPasswordError">As senhas não coincidem.</div>
+            </div>
+
+            <button type="submit">Confirmar</button>
+        </form>
+    </div>
+    <div id="modal-sucesso" class="modal-sucesso hidden">
+        <div class="modal-content">
+          <i class='bx bx-check-circle'></i>
+          <h2>Senha atualizada com sucesso!</h2>
+          <p>Agora você pode fazer login com sua conta.</p>
+          <button id="fechar-modal" class="btn">OK</button>
+        </div>
+    </div>
+
+    <script src="../static/js/atualizasenha.js"></script>
+</body>
+</html>

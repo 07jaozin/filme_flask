@@ -14,68 +14,69 @@ class UserDAO:
         self.__cursor = self.__conexao.cursor()
 
     def insirir_usuario(self, usuario):
-        sql = "INSERT INTO usuario (nome, senha, foto, tipo) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO usuario (nome, senha, email, foto, tipo) VALUES (%s, %s, %s, %s, %s)"
         
-        valores = (usuario.nome.lower(), usuario.senha, usuario.foto, usuario.tipo)
+        valores = (usuario.nome.lower(), usuario.senha, usuario.email, usuario.foto, usuario.tipo)
         print(valores)
         self.__cursor.execute(sql,valores)
         self.__conexao.commit()
         return self.__cursor.lastrowid
     
     def listar_usuarios(self):
-        sql = "Select id, nome, senha, foto, tipo from usuario"
+        sql = "Select id, nome, senha, email, foto, tipo from usuario"
         self.__cursor.execute(sql)
         resultados = self.__cursor.fetchall()
         lista = []
 
         for r in resultados:
-            id, nome, senha, foto, tipo = r 
-            novo_usuario = Pessoas(nome, senha, foto, tipo, id)
+            id, nome, senha, email, foto, tipo = r 
+            novo_usuario = Pessoas(nome, senha, email, foto, tipo, id)
             lista.append(novo_usuario)
             
         print(lista)
         return lista
    
     def perfil(self, id):
-        sql = "SELECT id, nome, senha, foto, tipo FROM usuario WHERE id = %s"
+        sql = "SELECT id, nome, senha, email, foto, tipo FROM usuario WHERE id = %s"
         self.__cursor.execute(sql, (id,)) 
         resultados = self.__cursor.fetchall()
         print(resultados)
         
         if resultados == []:
-            return False
+            return []
         for r in resultados:
-            id, nome, senha, foto, tipo = r 
-            novo_usuario = Pessoas(nome, senha, foto, tipo, id)
+            id, nome, senha, email, foto, tipo = r 
+            novo_usuario = Pessoas(nome, senha,email, foto, tipo, id)
             
        
         return novo_usuario
     
-    def editar(self, nome, senha, foto, id):
+    def editar(self, nome, senha, email, foto, id):
         if foto == '':
-            sql = "UPDATE usuario SET nome = %s, senha = %sWHERE id = %s"
-            valores = (nome.lower() ,senha ,id)
+            sql = "UPDATE usuario SET nome = %s, senha = %s, email = %s WHERE id = %s"
+            valores = (nome.lower() ,senha, email, id)
         else:
-             sql = "UPDATE usuario SET nome = %s, senha = %s, foto = %s WHERE id = %s"
-             valores = (nome.lower() ,senha, foto ,id)
+             sql = "UPDATE usuario SET nome = %s, senha = %s, email = %s, foto = %s WHERE id = %s"
+             valores = (nome.lower() ,senha, email, foto ,id)
         
         self.__cursor.execute(sql,valores)
         self.__conexao.commit()
         return True
     
-    def verificar_usuario(self, nome, senha):
+    def verificar_usuario(self, email, senha):
         
-        sql = "SELECT id, nome, senha, foto, tipo FROM usuario WHERE nome = %s and senha = %s"
-        print(nome, senha)
-        self.__cursor.execute(sql, (nome, senha,))
+        sql = "SELECT id, nome, senha, email, foto, tipo FROM usuario WHERE email = %s and senha = %s"
+        print(email, senha)
+        self.__cursor.execute(sql, (email, senha,))
         resultados = self.__cursor.fetchall()
         if resultados != []:
             for r in resultados:
-                id, nome, senha, foto, tipo = r 
+                id, nome, senha, email, foto, tipo = r 
                 novo_usuario = {
                 'id': id,
                 'nome': nome,
                 'senha': senha,
+                'email': email,
                 'foto': foto,
                 'tipo': tipo
                 }
@@ -101,5 +102,21 @@ class UserDAO:
         self.__cursor.execute(sql, valores)
         self.__conexao.commit()
         return True
+    
+    def atualiza_senha_por_email(self, email, senha):
+        sql = "UPDATE usuario SET senha = %s WHERE email = %s"
+        valores = (senha, email)
+        self.__cursor.execute(sql, valores)
+        self.__conexao.commit()
+        return True
+    
+    def verificar_email(self, email):
+        sql = "select id from usuario where email = %s"
+        self.__cursor.execute(sql, (email,))
+        resultado = self.__cursor.fetchone()
+
+        return resultado is not None
+
+        
    
        

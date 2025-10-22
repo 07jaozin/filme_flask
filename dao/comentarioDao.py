@@ -32,6 +32,7 @@ class ComentarioDAO:
 
         for r in resultados:
             id, comentarios, avaliacao, id_usuario, id_filme = r
+            sql_usu = "select lo"
             novo_comentario = Comentarios(comentarios, avaliacao, id_usuario, id_filme, id)
 
             lista.append(novo_comentario)

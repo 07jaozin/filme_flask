@@ -200,7 +200,7 @@
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                {% if usuario != '' %}
+                <!--{% if usuario != '' %}
                 <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
@@ -210,7 +210,7 @@
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
                 </a>
-                {% endif %}
+                {% endif %}-->
 
 
                 <a href="/pesquisa" class="nav-link  nav-active">
@@ -223,7 +223,7 @@
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
-                {% if usuario != '' %}
+                <!--{% if usuario != '' %}
                 <a href="/logout" class="nav-link">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
@@ -233,7 +233,7 @@
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Logar</div>
                 </a>
-                {% endif %}
+                {% endif %}-->
                 
 
             </div>
@@ -248,7 +248,7 @@
     
     
     <h2>Editar</h2>
-    <form action="/editar_comentario/{{ c.id }}/{{ filmes.id }}" method="POST" enctype="multipart/form-data">
+    <form >
        
     <!-- Campo de Data -->
     
@@ -256,7 +256,7 @@
     <input type="text" id="avaliacao-editar" name="avaliacao-editar" value="{{ c.avaliacao }}" required>
 
     <label for="data">Comentario</label>
-    <textarea type="text" name="comentario-editar"required>{{ c.comentario }}</textarea>
+    <textarea type="text" name="comentario-editar"required></textarea>
    
     
         <br>

@@ -7,7 +7,13 @@ class Canais:
         self.__id = id
         self.__checked = ""
 
-
+    def to_dict(self):
+        return {
+            "id": self.__id,
+            "nome": self.__nome,
+            "link": self.__link,
+            "foto": self.__foto
+        }
     
     @property
     def id(self):

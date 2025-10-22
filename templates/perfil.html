@@ -6,35 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
 </head>
 <body>
-     <!-- headder -->
+     <!-- header -->
      <header>
         <div class="nav container">
-            
-
-            
-            
-          
+            <div class="navbar">
+                <a href="" id="user-link" class="user" id="user-link" style="display:none;">
+                <img id="user-img" src="" alt="" class="user-img">
+            </a>
 
             <div class="navbar">
-                <a href="/" class="nav-link">
+                <a href="/" id="" class="nav-link nav-active">
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                {% if usuario != '' %}
-                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link nav-active">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-                {% else %}
-                <a href="/login" class="nav-link">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-                {% endif %}
+                
 
 
                 <a href="/pesquisa" class="nav-link">
@@ -42,57 +31,75 @@
                     <div class="nav-linl-title">Explore</div>
                 </a>
 
-                <a href="/gerenciamento" class="nav-link">
+                <a href="/filme/gerenciamento" class="nav-link">
                     <i class='bx bx-tv'></i>
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
-                {% if usuario != '' %}
-                <a href="/logout" class="nav-link">
+              
+                <a href="/logout" class="nav-link sair" style="display:none;">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
                 </a>
-                {% else %}
-                <a href="/login" class="nav-link">
+                <a href="/user/login" id="logar" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Logar</div>
                 </a>
-                {% endif %}
-                
-
+               
             </div>
-
         </div>
-
      </header>
-    
-    <div class="card">
-        <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="img">
+
+    <div class="card" id="perfil-card">
+        <img src="" alt="" class="img" id="perfil-foto">
         <br>
-        <a href="/deletar_foto_perfil" style="color: red;">Remover foto de perfil</a>
+        <a href="" style="color: red;" id="remover-foto">Remover foto de perfil</a>
         <br>
-        <h1 class="name">{{ usuario.nome }}</h1>
-        
-        <h1 class="senha">{{ usuario.senha }}</h1>
-        
+        <h1 class="name" id="perfil-nome"></h1>
+        <h1 class="email" id="perfil-email"></h1>
         <br>
-        <br>
-        
-        <br>
-        <a href="/editar_perfil/{{ usuario.id }}" class="btn">editar perfil</a>
-        <a class="btn excluir">excluir conta</a>
-       
+        <a href="#" class="btn" id="editar-perfil-btn">Editar perfil</a>
+        <a class="btn excluir" id="excluir-conta">Excluir conta</a>
     </div>
 
-    <div class="confirmacao-modal" id="modal-excluir">
+    <!-- Modal de edição -->
+    <div class="modal-editar hidden" id="modal-editar">
         <div class="modal-conteudo">
-          <h2>Deseja realmente excluir sua conta?</h2>
-          <div class="botoes">
-            <a href="/excluir_perfil/{{ usuario.id }}" class="btn-sim">Sim</a>
-            <a class="btn-cancelar">Cancelar</a>
-          </div>
+            <h2>Editar Perfil</h2>
+            <form id="editar-perfil-form">
+                <label>Nome:</label>
+                <input type="text" id="editar-nome" name="nome-editar" required>
+                <label>Email:</label>
+                <input type="email" id="editar-email" name="email-editar" required>
+                <label>Senha:</label>
+                <input type="password" id="editar-senha" name="senha-editar" required>
+
+                <label>Foto de perfil</label>
+                <input type="file" id="editar-senha" name="foto-editar" accept="image/*">
+                <button type="submit">Salvar alterações</button>
+                <button type="button" id="fechar-editar">Cancelar</button>
+            </form>
         </div>
-      </div>
-      <script src="{{ url_for('static', filename='js/perfil.js')}}"></script>
+    </div>
+
+    <!-- Modal código de verificação -->
+    <div class="modal-codigo hidden" id="modal-codigo">
+        <div class="modal-conteudo">
+            <h2>Digite o código enviado para seu e-mail</h2>
+            <input type="text" id="codigo-verificacao" placeholder="Código">
+            <div id="erro-verificacao" style="color:red; display:none;"></div>
+            <button id="verificar-codigo">Verificar</button>
+        </div>
+    </div>
+
+    <!-- Modal sucesso -->
+    <div class="modal-sucesso hidden" id="modal-sucesso">
+        <div class="modal-conteudo">
+            <h2>Perfil atualizado com sucesso!</h2>
+            <button id="fechar-sucesso">Fechar</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/perfil.js')}}"></script>
 </body>
 </html>

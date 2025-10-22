@@ -27,6 +27,9 @@ class CanaisController:
         return self.__dao.listar_canais()
 
     def buscar_por_id(self, id):
+        return self.__dao.buscar_canal_por_idfilme(id)
+    
+    def buscar_por_idCanal(self, id):
         return self.__dao.buscar_canal_por_id(id)
 
     def editar_canal(self, id, nome, link, foto):

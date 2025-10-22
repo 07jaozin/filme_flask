@@ -95,54 +95,60 @@
 </head>
 <body>
   <header>
-    <div class="nav container">
-        <a href="index.html" class="logo">
-            Movie<span>PY</span>
-        </a>
-
-        
-        <!--User -->
-       
-
-        <div class="navbar">
-            <a href="/" class="nav-link">
-                <i class='bx bx-home'></i>
-                <div class="nav-linl-title">Inicio</div>
+        <div class="nav container">
+            <a class="logo">
+                Movie<span>PY</span>
             </a>
+
             
-            <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
-                <i class='bx bx-user'></i>
-                <div class="nav-linl-title">Perfil</div>
+           
+            <a href="#" class="user" id="user-link" style="display:none;">
+                <img id="user-img" src="" alt="" class="user-img">
             </a>
 
-            <a href="/pesquisa" class="nav-link">
-                <i class='bx bx-compass'></i>
-                <div class="nav-linl-title">Explore</div>
-            </a>
+            <div class="navbar">
+                <a href="#home" class="nav-link nav-active">
+                    <i class='bx bx-home'></i>
+                    <div class="nav-linl-title">Inicio</div>
+                </a>
+                
 
-            <a href="/gerenciamento" class="nav-link nav-active">
-                <i class='bx bx-tv'></i>
-                <div class="nav-linl-title">Gerenciamento</div>
-            </a>
 
-            <a href="/logout" class="nav-link">
-                <i class='bx bx-exit'></i>
-                <div class="nav-linl-title">Sair</div>
-            </a>
-            
+                <a href="/pesquisa" class="nav-link">
+                    <i class='bx bx-compass'></i>
+                    <div class="nav-linl-title">Explore</div>
+                </a>
+
+                <a href="/gerenciamento" class="nav-link">
+                    <i class='bx bx-tv'></i>
+                    <div class="nav-linl-title">Gerenciamento</div>
+                </a>
+
+              
+                <a href="/logout" class="nav-link" style="display: none;">
+                    <i class='bx bx-exit'></i>
+                    <div class="nav-linl-title">Sair</div>
+                </a>
+                <a href="/user/login" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <div class="nav-linl-title">Logar</div>
+                </a>
+               
+                
+
+            </div>
 
         </div>
 
-    </div>
-
- </header>
+     </header>
   <div class="painel container">
     <h1>Painel Administrativo</h1>
     <div class="abas">
-      <a class="aba" href="/filme_gerenciamento">Gerenciamento de Filmes</a>
-      <a class="aba" href="/canais">Gerenciamento de Canais</a>
+      <a class="aba" href="/filme/filmeGerenciamento">Gerenciamento de Filmes</a>
+      <a class="aba" href="/canais/">Gerenciamento de Canais</a>
     </div>
   </div>
 
+  <script src="{{ url_for('static', filename='js/sessionUsuario.js')}}"></script>
 </body>
 </html>

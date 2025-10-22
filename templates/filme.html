@@ -14,38 +14,20 @@
   <!-- Demo styles -->
   
 
-<body>
+<body id="body">
     <!-- headder -->
-    <header>
+     <header>
         <div class="nav container">
-            <a href="index.html" class="logo">
-                Movie<span>PY</span>
+            <a class="logo" onclick="abrir_comentarios()" style="cursor: pointer;">
+                AVALIE <span>TAMBEM!</span>
             </a>
-
-            
-            <!--User -->
-            {% if usuario != '' %}
-            <a href="#" class="user">
-                <img src="{{ url_for('static', filename='img/' + usuario.foto)}}" alt="" class="user-img">
-            </a>
-            {% endif %}
 
             <div class="navbar">
-                <a href="/" class="nav-link">
+                <a href="/" id="" class="nav-link">
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                {% if usuario != '' %}
-                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-                {% else %}
-                <a href="/login" class="nav-link">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-                {% endif %}
+                
 
 
                 <a href="/pesquisa" class="nav-link nav-active">
@@ -53,187 +35,59 @@
                     <div class="nav-linl-title">Explore</div>
                 </a>
 
-                <a href="/gerenciamento" class="nav-link">
+                <a href="/filme/gerenciamento" class="nav-link">
                     <i class='bx bx-tv'></i>
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
-                {% if usuario != '' %}
-                <a href="/logout" class="nav-link">
+              
+                <a href="/logout" class="nav-link sair" style="display: none;">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
                 </a>
-                {% else %}
-                <a href="/login" class="nav-link">
+                <a href="/user/login" id="logar" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Logar</div>
                 </a>
-                {% endif %}
-                
-
             </div>
-
         </div>
-
      </header>
-
-    
        <!--Fim da sessão-->
 
-     <div class="play-container container">
-        <img src="{{ url_for('static', filename='img/' + perfil.foto)}}" alt="" class="play-img">
-        <div class="play-text">
-            <h2>{{ perfil.titulo }}</h2>
-            <div class="rating">
-                {{ perfil.lancamento.strftime('%d/%m/%Y') }}
-            </div>
-
-                <div class="tags">
-                    <span>{{ perfil.genero }}</span>
-                    
-                    <span>4K</span>
-                </div>
-                <div class="rating">
-                   
-                    {% set avaliacao = perfil.avaliacao|float %}
-                    {% set estrelas_cheias = avaliacao|round(0, 'floor') %}
-                    {% set tem_meia_estrela = (avaliacao - estrelas_cheias) >= 0.25 and (avaliacao - estrelas_cheias) < 0.75 %}
-                    {% set estrelas_vazias = 5 - estrelas_cheias - (1 if tem_meia_estrela else 0) %}
-                    
-                   
-                    {% for i in range(estrelas_cheias|int) %}
-                      <i class='bx bxs-star'></i>
-                    {% endfor %}
-                    
-                    
-                    {% if tem_meia_estrela %}
-                      <i class='bx bxs-star-half'></i>
-                    {% endif %}
-                    
-                   
-                    {% for i in range(estrelas_vazias|int) %}
-                      <i class='bx bx-star'></i>
-                    {% endfor %}
-                    
-                    
-                </div>
-                <br>
-                <a href="/comentarios/{{ perfil.id }}" class="watch-btn">
-                   
-                    <span>Avalie</span>
-                </a>  
-
-        </div>
-        <i class='bx bx-right-arrow play-movie'></i>
-        <div class="video-container">
-            <div class="video-box">
-                <video id="myvideo" src="{{ url_for('static', filename='video/' + perfil.video)}}" controls></video>
-                <i class='bx bx-x close-video'></i>
-            </div>
-        </div>
+     <div class="play-container container" id="filme-perfil">
+     
      </div>
      <br>
      <br>
-     <center>
-     <div class="sinopse container">
-     
-     <p>{{ perfil.descricao }}</p>
-    
-    </div>
-    </center>
-     <div class="next-page">
-        <a href="{{ url_for('static', filename='video/' + perfil.video)}}" download="" class="next-btn">download do trailer</a>
-    </div>
-    <br>
-    <div class="heading container">
-      <h2 class="heading-title">Onde assistir</h2>
-    </div>
-    <div class="movies-content container">
-    {% for c in perfil.canais %}
-      <div class="canais-box">
-        
-        <img src="{{ url_for('static', filename='img/' + c[3])}}" data-link="{{ c[2] }}"  alt="" class="movie-box-img">
-      </div>
-     
-    {% endfor %}
-    </div>
-        <br>
-        <div class="heading container">
-            <h2 class="heading-title">Avaliações</h2>
-        </div>
-        <br>
+<div id="comentario-overlay" class="comentario-overlay hidden">
+  <div class="comentario-bar">
+    <button id="fechar-comentario" class="close-btn">
+      <i class='bx bx-x'></i>
+    </button>
 
-        {% if comentarios %}
-            {% for c in comentarios %}
-            <div class="comentarios container {% if loop.index > 5 %}comentario-extra hidden{% endif %}">
-                <div class="informacoes">
-                  <a href="#" class="user">
-                    <img src="{{ url_for('static', filename='img/' + c['foto'])}}" alt="" class="user-img">
-                  </a>
-              
-                  <div class="rating">
-                    <!-- Avaliação -->
-                    {% set avaliacao = c['avaliacao']|float %}
-                    {% set estrelas_cheias = avaliacao|round(0, 'floor') %}
-                    {% set tem_meia_estrela = (avaliacao - estrelas_cheias) >= 0.25 and (avaliacao - estrelas_cheias) < 0.75 %}
-                    {% set estrelas_vazias = 5 - estrelas_cheias - (1 if tem_meia_estrela else 0) %}
-              
-                    {% for i in range(estrelas_cheias|int) %}
-                      <i class='bx bxs-star'></i>
-                    {% endfor %}
-                    {% if tem_meia_estrela %}
-                      <i class='bx bxs-star-half'></i>
-                    {% endif %}
-                    {% for i in range(estrelas_vazias|int) %}
-                      <i class='bx bx-star'></i>
-                    {% endfor %}
-                  </div>
-              
-                  <!-- Botão de opções -->
-                  {% if session['id'] == c['id_usuario'] %}
-                  <div class="options-container">
-                    <button class="options-btn" onclick="toggleMenu(this)">⋮</button>
-                    <div class="options-menu hidden">
-                      <a href="/editar_comentario/{{ c['id'] }}/{{ perfil.id }}" class="option-item">Editar</a>
-                      <form action="/excluir_comentario/{{ c['id'] }}/{{ perfil.id }}" method="POST" class="option-item-form">
-                        <button type="submit" class="option-item">Excluir</button>
-                      </form>
-                    </div>
-                  </div>
-                  {% endif %}
-                </div>
-              
-                <p>{{ c['comentario'] }}</p>
-              </div>
-              
-              <br>
-            {% endfor %}
+    <input type="text" id="texto-comentario" placeholder="Escreva seu comentário..." />
 
-          
-          {% if comentarios|length > 5 %}
-          <center>
-          <div class="text-center mt-4">
-            <button class="ver-todos-btn" onclick="mostrarTodos(event)">Ver todos</button>          
-        </div>
-        </center>
-          {% endif %}
-    {% else %}
+    <!-- Campo de avaliação corrigido -->
+    <select id="avaliacao" name="avaliacao">
+      <option value="5">5 estrelas</option>
+      <option value="4">4 estrelas</option>
+      <option value="3">3 estrelas</option>
+      <option value="2">2 estrelas</option>
+      <option value="1">1 estrela</option>
+      <option value="0">0 estrelas</option>
+    </select>
 
-    <center>
-        <p class="heading-title">Sem Avaliações ainda, seja o primeiro a <span><a style="color: hsl(0, 78%, 43%);" href="/comentarios/{{ perfil.id }}">avaliar</a></span></p>
-    </center>
-    {% endif %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <button id="enviar-comentario" class="send-btn">
+      <i class='bx bx-send'></i>
+    </button>
+  </div>
+</div>
 
-    
 
-  <!-- Swiper JS -->
-  
 <script src="{{ url_for('static', filename='js/index.js')}}"></script>
+<script src="{{ url_for('static', filename='js/sessionUsuario.js')}}"></script>
+<script src="{{ url_for('static', filename='js/perfil_filme.js')}}"></script>
+<script src="{{ url_for('static', filename='js/comentarios.js')}}"></script>
 <script>
     function toggleMenu(button) {
       const menu = button.nextElementSibling;
@@ -249,17 +103,12 @@
 
       
     }
-    const canais_box = document.querySelectorAll('.movie-box-img');
-      canais_box.forEach( button => {
-        console.log('aq')
-        button.addEventListener("click", () =>{
-          let link = button.getAttribute('data-link');
-          window.open(link, '_blank');
-        })
-      })
+    
+    
   </script>
   
   <!-- Initialize Swiper -->
+
 
 </body>
 

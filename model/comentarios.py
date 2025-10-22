@@ -8,6 +8,15 @@ class Comentarios:
         self.__id_usuario = id_usuario
         self.__id_filme = id_filme
 
+    def to_dict(self):
+        return {
+            "id": self.__id,
+            "comentario": self.__comentario,
+            "avaliação": self.__avaliacao,
+            "id_usuario": self.__id_usuario,
+            "id_filme": self.__id_filme
+
+        }
 
     @property
     def id(self):

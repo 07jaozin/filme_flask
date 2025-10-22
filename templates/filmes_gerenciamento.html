@@ -1,147 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css')}}">
-
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <title>Cadastrar Produto</title>
-   
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css') }}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Gerenciamento de Filmes</title>
 </head>
 <body>
-
-  <header>
-    <div class="nav container">
-        <a href="index.html" class="logo">
-            Movie<span>PY</span>
-        </a>
-
-        
-        <!--User -->
-       
-
-        <div class="navbar">
-            <a href="/" class="nav-link">
-                <i class='bx bx-home'></i>
-                <div class="nav-linl-title">Inicio</div>
-            </a>
-            
-            <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
-                <i class='bx bx-user'></i>
-                <div class="nav-linl-title">Perfil</div>
-            </a>
-
-            <a href="/pesquisa" class="nav-link">
-                <i class='bx bx-compass'></i>
-                <div class="nav-linl-title">Explore</div>
-            </a>
-
-            <a href="/gerenciamento" class="nav-link nav-active">
-                <i class='bx bx-tv'></i>
-                <div class="nav-linl-title">Gerenciamento</div>
-            </a>
-
-            <a href="/logout" class="nav-link">
-                <i class='bx bx-exit'></i>
-                <div class="nav-linl-title">Sair</div>
-            </a>
-            
-
-        </div>
-
+<header>
+  <div class="nav container">
+    <a href="/" class="logo">Movie<span>PY</span></a>
+    <div class="navbar">
+      <a href="/" class="nav-link"><i class='bx bx-home'></i><div class="nav-linl-title">Inicio</div></a>
+      <a href="/pesquisa" class="nav-link"><i class='bx bx-compass'></i><div class="nav-linl-title">Explore</div></a>
+      <a href="/gerenciamento" class="nav-link nav-active"><i class='bx bx-tv'></i><div class="nav-linl-title">Gerenciamento</div></a>
+      <a href="/logout" class="nav-link"><i class='bx bx-exit'></i><div class="nav-linl-title">Sair</div></a>
     </div>
+  </div>
+</header>
 
- </header>
-<br>
-<br>
-<br>
 <div class="containerr">
-    <h2>Cadastrar Filme</h2>
-    <form action="/filme_gerenciamento" method="POST" enctype="multipart/form-data">
-        <label for="titulo">Título:</label>
+  <h2>Cadastrar Filme</h2>
+  <form id="form-cadastro-filme" enctype="multipart/form-data">
+    <label for="titulo">Título:</label>
     <input type="text" id="titulo" name="titulo" required>
 
-    <!-- Campo de Gênero -->
     <label for="genero">Gênero:</label>
     <input type="text" id="genero" name="genero" required>
 
-    <!-- Campo de Categoria -->
     <label for="categoria">Categoria:</label>
     <select id="categoria" name="categoria" required>
-        <option value="home">Home</option>
-        <option value="popular">Popular</option>
-        <option value="show">Show</option>
+      <option value="home">Home</option>
+      <option value="popular">Popular</option>
+      <option value="show">Show</option>
     </select>
 
-    <!-- Campo de Data -->
     <label for="data">Data:</label>
     <input type="date" id="data" name="data" required>
-    <br>
-    <br>
-    <label for="data">Descricao:</label>
-    <input type="text" id="descricao" name="descricao" max="10000" required>
+
+    <label for="descricao">Descrição:</label>
+    <input type="text" id="descricao" name="descricao" required>
 
     <label>Onde assistir</label>
-  <div class="checkbox-group">
-  {% for c in canais_lista %}
-    <label class="custom-checkbox">
-      <input type="checkbox" name="canais" value="{{ c.id }}">
-      <span class="checkmark"></span>
-      {{ c.nome }}
-    </label>
-  {% endfor %}
-</div>
-    <!-- Campo de Foto -->
+    <div class="checkbox-group" id="checkbox-canais"></div>
+
     <label for="foto">Foto:</label>
     <input type="file" id="foto" accept="image/*" name="foto" required>
 
-    <!-- Campo de Vídeo -->
     <label for="video">Vídeo:</label>
     <input type="file" id="video" accept="video/*" name="video" required>
-    
-        <button type="submit">Cadastrar</button>
-    </form>
+
+    <button type="submit">Cadastrar</button>
+  </form>
 </div>
-<br>
-
 
 <br>
-<br>
+
 <div class="table-container">
-    <h1>Todos os filmes</h1>
-    <table class="menu-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          
-          <th>Titulo</th>
-          <th>Categoria</th>
-          <th>Lançamento</th>
-          <th>Genero</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for filme in filmes %}
-        <tr>
-          <td>{{ filme.id }}</td>
-          <td>{{ filme.titulo }}</td>
-          <td>{{ filme.categoria }}</td>
-          <td>{{ filme.lancamento }}</td>
-          <td>{{ filme.genero }}</td>
-          <td>
-            <a href="/editar_filme/{{ filme.id }}"  class="edit-btn">Editar</a>
-            <a href="/excluir_fime/{{ filme.id }}"  class="delete-btn">Excluir</a>
-          </td>
-        </tr>
-        {% endfor %}
+  <h1>Todos os filmes</h1>
+  <table class="menu-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Categoria</th>
+        <th>Lançamento</th>
+        <th>Gênero</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="filmes-tbody"></tbody>
+  </table>
+</div>
+
+<!-- Modal Editar (Melhorado) -->
+<div id="modal-editar" class="modal hidden">
+  <div class="modal-content">
+    <span class="close" id="fechar-editar">&times;</span>
+    <h3>Editar Filme</h3>
+    <form id="form-editar-filme" enctype="multipart/form-data">
+      <input type="hidden" id="editar-id" name="id">
       
-       
-      </tbody>
-    </table>
+      <label for="editar-titulo">Título:</label>
+      <input type="text" id="editar-titulo" name="titulo-editar" required>
+
+      <label for="editar-genero">Gênero:</label>
+      <input type="text" id="editar-genero" name="genero-editar" required>
+
+      <label for="editar-categoria">Categoria:</label>
+      <select id="editar-categoria" name="categoria-editar" required>
+        <option value="home">Home</option>
+        <option value="popular">Popular</option>
+        <option value="show">Show</option>
+      </select>
+
+      <label for="editar-data">Data:</label>
+      <input type="date" id="editar-data" name="data-editar" required>
+
+      <label for="editar-descricao">Descrição:</label>
+      <textarea id="editar-descricao" name="descricao-editar" rows="3" required></textarea> <!-- Mudado para textarea para melhor UX -->
+
+      <label>Onde assistir</label>
+      <div class="checkbox-group" id="editar-checkbox-canais"></div>
+
+      <!-- Seção de Foto (com preview e opção de manter/remover) -->
+      <label>Foto Atual:</label>
+      <div class="file-preview" id="editar-foto-preview">
+        <img id="editar-foto-img" src="" alt="Foto atual" style="max-width: 100%; max-height: 150px; display: none;">
+        <p id="editar-foto-placeholder" style="color: #666; font-style: italic;">Nenhuma foto carregada</p>
+      </div>
+      <label for="editar-foto">Nova Foto (opcional):</label>
+      <input type="file" id="editar-foto" accept="image/*" name="foto-editar">
+      <label>
+        <input type="checkbox" id="manter-foto" name="manter_foto" checked> Manter foto atual
+      </label>
+
+      <!-- Seção de Vídeo (com preview e opção de manter/remover) -->
+      <label>Vídeo Atual:</label>
+      <div class="file-preview" id="editar-video-preview">
+        <video id="editar-video-player" controls style="max-width: 100%; max-height: 150px; display: none;"></video>
+        <p id="editar-video-placeholder" style="color: #666; font-style: italic;">Nenhum vídeo carregado</p>
+      </div>
+      <label for="editar-video">Novo Vídeo (opcional):</label>
+      <input type="file" id="editar-video" accept="video/*" name="video-editar">
+      <label>
+        <input type="checkbox" id="manter-video" name="manter_video" checked> Manter vídeo atual
+      </label>
+
+      <div class="modal-buttons">
+        <button type="submit" id="btn-atualizar">Atualizar</button>
+        <button type="button" id="btn-cancelar" class="cancel-btn">Cancelar</button>
+      </div>
+    </form>
   </div>
+</div>
+
+<!-- Modal Sucesso -->
+<div id="modal-sucesso" class="modal hidden">
+  <div class="modal-content">
+    <span class="close" id="fechar-modal-sucesso">&times;</span>
+    <h3>Atualizado com sucesso!</h3>
+  </div>
+</div>
+
+<script src="../static/js/filmeGeren.js"></script>
 
 </body>
 </html>

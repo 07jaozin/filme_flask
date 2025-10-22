@@ -21,52 +21,43 @@
            
 
             <!--- Pesquisa -->
-            <form action="/pesquisa" method="post" class="search-box">
-                <input type="search" name="campo" id="search-input" value="{{ pesquisa_campo }}" placeholder="search movie">
-                <button type="submit" class='bx bx-send'></button>
+            <form id="pesquisa" class="search-box">
+                <input type="search" name="campo" id="search-input" placeholder="search movie">
             </form>
             <button class="ver-todos-btn">Filtrar</button>
 
            
             <div class="navbar">
-                <a href="/" class="nav-link">
+
+            <div class="navbar">
+                <a href="/" id="" class="nav-link">
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                {% if usuario != '' %}
-                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-                {% else %}
-                <a href="/login" class="nav-link">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-                {% endif %}
+                
 
 
-                <a href="/pesquisa" class="nav-link  nav-active">
+                <a href="/pesquisa" class="nav-link nav-active">
                     <i class='bx bx-compass'></i>
                     <div class="nav-linl-title">Explore</div>
                 </a>
 
-                <a href="/gerenciamento" class="nav-link">
+                <a href="/filme/gerenciamento" class="nav-link">
                     <i class='bx bx-tv'></i>
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
-                {% if usuario != '' %}
-                <a href="/logout" class="nav-link">
+              
+                <a href="/logout" class="nav-link sair" style="display: none;">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
                 </a>
-                {% else %}
-                <a href="/login" class="nav-link">
+                <a href="/user/login" id="logar" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Logar</div>
                 </a>
-                {% endif %}
+               
+               
                 
 
             </div>
@@ -80,11 +71,11 @@
        <br>
        <br>
        <br>
-       <section class="movies container" id="movies">
-        <div class="video-container">
+       <section class="movies container" id="movies"></section>
+       <div class="video-container">
             <div class="form-container">
                 <h2 class="h2">Filtrar Filmes</h2>
-                <form action="/filtrar" method="post">
+                <form id="filtrar">
                   
                   <div class="form-group">
                     <label for="data_inicio">Data de Lançamento - Início</label>
@@ -123,7 +114,7 @@
                   </div>
                   <i class='bx bx-x close-video'></i>
                   <div class="button-container">
-                    <button type="submit">Filtrar</button>
+                    <button type="submit" id="btn-filtrar">Filtrar</button>
                   </div>
                 
                 </form>
@@ -131,48 +122,27 @@
               </div>
              
         </div>
-       {% if filmes == [] %}
-       <center>
-            <p>Nenhum filme encontrado</p>
-       </center>
 
-       {% else %}
-       
-        <div class="movies-content">
-            {% for filme in filmes %}
-            <div class="movie-box">
-                <img src="{{ url_for('static', filename='img/' + filme.foto)}}" alt="" class="movie-box-img">
-                <div class="box-text">
-                    <h2 class="movie-title">{{ filme.titulo }}</h2>
-                    <span class="movie-type">{{ filme.genero }}</span>
-                    <a href="{{ filme.perfil_video() }}" class="watch-btn">
-                        <i class='bx bx-right-arrow'></i>
-                    </a>
-                    
-                </div>
-            </div>
-        {% endfor %}
-        {% endif %}
-        </div>
-       
-        
-       </section>
 
-       <!--Fim da sessão-->
        
     
-
-       <script>
+ <script src="{{ url_for('static', filename='js/sessionUsuario.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/pesquisar.js')}}"></script>
+  <script>
 
  let video = document.querySelector('.video-container');
 
  let closebtn = document.querySelector('.close-video');
- let ver_todos_btn = document.querySelector('.ver-todos-btn')
+ let ver_todos_btn = document.querySelector('.ver-todos-btn');
+ let btn_filtrar = document.querySelector('#btn-filtrar');
 
 ver_todos_btn.onclick = () =>{
     video.classList.add('show-video');
     
   
+}
+btn_filtrar.onclick = () =>{
+  video.classList.remove('show-video');
 }
 
  closebtn.onclick = () =>{

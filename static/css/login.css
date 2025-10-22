@@ -252,51 +252,169 @@ form{
     }
 }
 .erro {
-    background-color: #f8d7da; 
-    color: #721c24;  
-    border: 1px solid #f5c6cb; 
-    padding: 10px;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    display: flex;
-    align-items: center;  
-  }
-  
-  .erro::before {
-    content: "×";  
-    font-size: 20px;
-    margin-right: 10px;
-    color: #721c24;  
-  }
-
-.sucesso{
-    display: none;
-}
-.sucesso.visiviel {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+  background-color: #ffe5e7;
+  color: #b30021;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 15px;
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(179, 0, 33, 0.15);
+  margin-top: 10px;
+  animation: slideDown 0.4s ease;
 }
 
-.sucesso.visiviel::before {
-  content: "✓";
-  font-size: 20px;
-  margin-right: 10px;
-  color: #155724;  
+.erro::before {
+  content: "❌";
+  font-size: 18px;
 }
 
-
-
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
   .desabilitado{
     color: #333;
     background-color: #888;
   }
+  /* ===== Modal de Sucesso ===== */
+.modal-erro{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  transition: opacity 0.3s ease;
+}
+.modal-sucesso {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: opacity 0.3s ease;
+}
+
+.modal-sucesso.hidden,
+.modal-erro.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content,
+.modal-content-erro {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  animation: pop 0.3s ease;
+}
+
+.modal-content i {
+  font-size: 3rem;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+.modal-content-erro i {
+  font-size: 3rem;
+  color: #ff0000;
+  margin-bottom: 10px;
+}
+
+.modal-content h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+

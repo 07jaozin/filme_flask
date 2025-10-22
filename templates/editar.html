@@ -17,7 +17,6 @@
             </a>
     
             
-            <!--User -->
            
     
             <div class="navbar">
@@ -26,10 +25,10 @@
                     <div class="nav-linl-title">Inicio</div>
                 </a>
                 
-                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                <!--<a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
-                </a>
+                </a>-->
     
                 <a href="/pesquisa" class="nav-link">
                     <i class='bx bx-compass'></i>
@@ -57,15 +56,16 @@
 <br>
 <div class="containerr">
     <h2>Editar filme</h2>
+    <!--
     <form action="/editar_filme/{{ filme.id }}" method="POST" enctype="multipart/form-data">
         <label for="titulo">Título:</label>
     <input type="text" id="titulo" name="titulo-editar" required value="{{ filme.titulo }}">
 
-    <!-- Campo de Gênero -->
+   
     <label for="genero">Gênero:</label>
     <input type="text" id="genero" name="genero-editar" value="{{ filme.genero }}" required>
 
-    <!-- Campo de Categoria -->
+    
     <label for="categoria">Categoria:</label>
     <select id="categoria" name="categoria-editar" required>
         <option value="home">Home</option>
@@ -73,7 +73,7 @@
         <option value="show">Show</option>
     </select>
 
-    <!-- Campo de Data -->
+   
     <label for="data">Data:</label>
     <input type="text" id="data" name="data-editar" value="{{ filme.lancamento }}" required>
 
@@ -91,16 +91,15 @@
     </label>
   {% endfor %}
   </div>
-    <!-- Campo de Foto -->
     <label for="foto">Foto:</label>
     <input type="file" id="foto" accept="image/*" name="foto-editar">
 
-    <!-- Campo de Vídeo -->
     <label for="video">Vídeo:</label>
     <input type="file" id="video" accept="video/*" name="video-editar">
     
         <button type="submit">Cadastrar</button>
     </form>
+-->
 </div>
 
 <script src="{{ url_for('static', filename='js/gerenciamento.js')}}"></script>

@@ -28,10 +28,10 @@
                     <div class="nav-linl-title">Inicio</div>
                 </a>
                 
-                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
+                <!--<a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
-                </a>
+                </a>-->
 
                 <a href="/pesquisa" class="nav-link">
                     <i class='bx bx-compass'></i>
@@ -59,7 +59,7 @@
 <br>
 <div class="containerr">
     <h2>Cadastrar canal</h2>
-    <form action="/editar_canais/{{ canal.id }}" method="POST" enctype="multipart/form-data">
+    <form>
         <label for="titulo">Nome:</label>
     <input type="text" id="titulo" name="nome_canal-editar" value="{{ canal.nome }}" required>
 

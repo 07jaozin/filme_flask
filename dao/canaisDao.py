@@ -42,6 +42,24 @@ class CanaisDAO:
             id, nome, link, foto = resultado
             return Canais(nome, link, foto, id)
         return None
+    
+    def buscar_canal_por_idfilme(self, id):
+        print(id)
+        sql = "select canais.id, canais.nome, canais.foto, canais.link from canais inner join canais_filme on canais.id = canais_filme.canal_id where canais_filme.filme_id = %s;"
+        self.__cursor.execute(sql, (id,))
+        resultado = self.__cursor.fetchall()
+        print(resultado)
+        lista = []
+
+        if resultado:
+            print("aqCanais")
+            for r in resultado:
+                id, nome, foto, link = r
+                novo_canal = Canais(nome, link, foto, id)
+                lista.append(novo_canal)
+
+            return lista
+        return False
 
     def editar_canal(self, id, nome, link, foto):
         sql = "UPDATE canais SET nome = %s, link = %s WHERE id = %s"

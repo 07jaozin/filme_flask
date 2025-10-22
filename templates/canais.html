@@ -3,113 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css')}}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/canais.css')}}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <title>Cadastrar Produto</title>
-   
+    <title>Cadastrar Canal</title>
 </head>
 <body>
-
     <header>
         <div class="nav container">
-            <a href="index.html" class="logo">
-                Movie<span>PY</span>
-            </a>
-
-            
-            <!--User -->
-           
-
+            <a class="logo">Movie<span>PY</span></a>
             <div class="navbar">
                 <a href="/" class="nav-link">
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                
-                <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
-                    <i class='bx bx-user'></i>
-                    <div class="nav-linl-title">Perfil</div>
-                </a>
-
                 <a href="/pesquisa" class="nav-link">
                     <i class='bx bx-compass'></i>
                     <div class="nav-linl-title">Explore</div>
                 </a>
-
                 <a href="/gerenciamento" class="nav-link nav-active">
                     <i class='bx bx-tv'></i>
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
-
                 <a href="/logout" class="nav-link">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
                 </a>
-                
-
             </div>
-
         </div>
+    </header>
 
-     </header>
-<br>
-<br>
-<br>
-<div class="containerr">
-    <h2>Cadastrar canal</h2>
-    <form action="/canais" method="POST" enctype="multipart/form-data">
-        <label for="titulo">Nome:</label>
-    <input type="text" id="titulo" name="nome_canal"  required>
+    <br><br><br>
 
-    <!-- Campo de Gênero -->
-    <label for="genero">Link</label>
-    <input type="text" id="genero" name="link_canal" required>
+    <div class="containerr">
+        <h2>Cadastrar Canal</h2>
+        <form id="form-cadastro-canal" enctype="multipart/form-data">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome_canal" required>
 
-   
+            <label for="link">Link:</label>
+            <input type="url" id="link" name="link_canal" placeholder="https://exemplo.com" required>
 
-    <!-- Campo de Foto -->
-    <label for="foto">Foto:</label>
-    <input type="file" id="foto" accept="image/*" name="foto_canal" required>
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" accept="image/*" name="foto_canal" required>
 
- 
-    
-        <button type="submit">Cadastrar</button>
-    </form>
-</div>
-<!-- ... cabeçalho e formulário permanecem os mesmos -->
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
 
-<br>
-<br>
-<div class="table-container">
-    <h1>Todos os Canais</h1>
-    <table class="menu-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Link</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for canal in canais_lista %}
-        <tr>
-          <td>{{ canal.id }}</td>
-          <td>{{ canal.nome }}</td>
-          <td><a href="{{ canal.link }}" target="_blank">{{ canal.link }}</a></td>
-          <td>
-            <a href="/editar_canais/{{ canal.id }}" class="edit-btn">Editar</a>
-            <a href="/excluir_canal/{{ canal.id }}" class="delete-btn">Excluir</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-</div>
+    <br><br>
 
-  <script src="{{ url_for('static', filename='js/gerenciamento.js')}}"></script>
+    <div class="table-container">
+        <h1>Todos os Canais</h1>
+        <table class="menu-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Link</th>
+                    <th>Foto</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="canais-tbody"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal Editar Canal (Melhorado) -->
+    <div id="modal-editar-canal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="fechar-editar-canal">&times;</span>
+            <h3>Editar Canal</h3>
+            <form id="form-editar-canal" enctype="multipart/form-data">
+                <input type="hidden" id="editar-id-canal" name="id">
+                
+                <label for="editar-nome">Nome:</label>
+                <input type="text" id="editar-nome" name="nome_canal-editar" style="color: #ffff;" required>
+
+                <label for="editar-link">Link:</label>
+                <input type="url" id="editar-link" name="link_canal-editar" style="color: #ffff;" placeholder="https://exemplo.com" required>
+
+                <!-- Seção de Foto (com preview e opção de manter/remover) -->
+                <label>Foto Atual:</label>
+                <div class="file-preview" id="editar-foto-preview">
+                    <img id="editar-foto-img" src="" alt="Foto atual" style="max-width: 100%; max-height: 150px; display: none;">
+                    <p id="editar-foto-placeholder" style="color: #666; font-style: italic;">Nenhuma foto carregada</p>
+                </div>
+                <label for="editar-foto">Nova Foto (opcional):</label>
+                <input type="file" id="editar-foto" accept="image/*" name="foto_canal-editar">
+                <label>
+                    <input type="checkbox" id="manter-foto" name="manter_foto" checked> Manter foto atual
+                </label>
+
+                <div class="modal-buttons">
+                    <button type="submit" id="btn-atualizar-canal">Atualizar</button>
+                    <button type="button" id="btn-cancelar-canal" class="cancel-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Sucesso -->
+    <div id="modal-sucesso-canal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="fechar-modal-sucesso-canal">&times;</span>
+            <h3>Cadastrado/Atualizado com sucesso!</h3>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/canais.js')}}"></script>
 
 </body>
 </html>

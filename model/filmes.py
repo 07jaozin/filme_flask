@@ -19,7 +19,18 @@ class Filmes:
         
         return f'filme/desconhecido'
     
-    
+    def to_dict(self):
+        return{
+            "id": self.__id,
+            "titulo": self.__titulo,
+            "genero": self.__genero,
+            "categoria": self.__categoria,
+            "lancamento": self.__lancamento,
+            "descricao": self.__descricao,
+            "avaliacao": self.__avaliacao,
+            "foto": self.__foto,
+            "video": self.__video
+        }
     @property
     def id(self):
         return self.__id

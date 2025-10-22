@@ -14,7 +14,7 @@
 
     <header>
         <div class="nav container">
-            <a href="index.html" class="logo">
+            <a  class="logo">
                 Movie<span>Vel</span>
             </a>
 
@@ -27,7 +27,7 @@
                     <i class='bx bx-home'></i>
                     <div class="nav-linl-title">Inicio</div>
                 </a>
-                {% if usuario != '' %}
+                <!--{% if usuario != '' %}
                 <a href="{{ usuario.urlDoPessoas() }}" class="nav-link">
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
@@ -37,7 +37,7 @@
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Perfil</div>
                 </a>
-                {% endif %}
+                {% endif %}-->
 
 
                 <a href="/pesquisa" class="nav-link nav-active">
@@ -50,7 +50,7 @@
                     <div class="nav-linl-title">Gerenciamento</div>
                 </a>
 
-                {% if usuario != '' %}
+                <!--{% if usuario != '' %}
                 <a href="/logout" class="nav-link">
                     <i class='bx bx-exit'></i>
                     <div class="nav-linl-title">Sair</div>
@@ -60,7 +60,7 @@
                     <i class='bx bx-user'></i>
                     <div class="nav-linl-title">Logar</div>
                 </a>
-                {% endif %}
+                {% endif %}-->
                 
 
             </div>
@@ -75,7 +75,7 @@
     
     
     <h2>Avaliar</h2>
-    <form action="/comentarios/{{ filme.id }}" method="POST" enctype="multipart/form-data">
+    <form >
        
     <!-- Campo de Data -->
     

@@ -69,17 +69,15 @@ class FilmeController:
         return self.__dao.listar_filme()
     
     def pesquisar_filme(self, campo):
-        session['primeira_vez'] = True
-        self.__lista_filme_pesquisa = self.__dao.pesquisa(campo)
-        self.__lista_campo_pesquisa = campo
-        return True
-    
-    def filtrar_controller(self, data_inicio, data_fim, avaliacao, categoria):
-         
-         self.__lista_filme_pesquisa = self.__dao.filtrar(data_inicio, data_fim, avaliacao, categoria, self.__lista_campo_pesquisa)
-         session['primeira_vez'] = True
 
-         return True
+        return self.__dao.pesquisa(campo)
+    
+    def filtrar_controller(self, data_inicio, data_fim, avaliacao, categoria, campo):
+         
+         return self.__dao.filtrar(data_inicio, data_fim, avaliacao, categoria, campo)
+        
+
+         
 
     def perfil_filme(self, id):
         self.__dao.atualiza_avaliacao_filmeDao(id)

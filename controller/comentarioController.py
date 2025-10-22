@@ -6,7 +6,7 @@ class ComentarioController:
 
 
         def __init__(self):
-            self.__lista = []
+            self.__lista = [] 
             self.__dao = ComentarioDAO()
 
         def inserir_comentario_controller(self, comentario,avaliacao, id_usuario, id_filme):
